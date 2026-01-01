@@ -1,0 +1,13 @@
+import 'package:flutter/material.dart';
+
+class ScreenHome extends StatelessWidget {
+  const ScreenHome({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(title: Text("Movies")),
+      body: Center(child: Text("HomeScreen")),
+    );
+  }
+}
