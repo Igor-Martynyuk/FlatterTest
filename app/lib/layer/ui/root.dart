@@ -3,27 +3,14 @@ import 'package:flutter/material.dart';
 
 import 'home/screen_home.dart';
 
-class MyApp extends StatelessWidget {
-  const MyApp({super.key});
+class Root extends StatefulWidget {
+  const Root({super.key});
 
   @override
-  Widget build(BuildContext context) {
-    return MaterialApp(
-      title: 'Flutter Demo',
-      theme: ThemeData(colorScheme: .fromSeed(seedColor: Colors.deepPurple)),
-      home: const MyHomePage(),
-    );
-  }
+  State<Root> createState() => _StateRoot();
 }
 
-class MyHomePage extends StatefulWidget {
-  const MyHomePage({super.key});
-
-  @override
-  State<MyHomePage> createState() => _MyHomePageState();
-}
-
-class _MyHomePageState extends State<MyHomePage> {
+class _StateRoot extends State<Root> {
   bool isLoading = true;
 
   @override
