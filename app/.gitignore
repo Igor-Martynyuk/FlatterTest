@@ -46,3 +46,5 @@ app.*.map.json
 
 # Flutter gen-l10n generated files
 lib/l10n/app_localizations*.dart
+
+.env
