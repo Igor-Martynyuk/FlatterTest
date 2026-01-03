@@ -29,6 +29,6 @@ class _StateRoot extends State<Root> {
 
   @override
   Widget build(BuildContext context) {
-    return isLoading == true ? const ScreenSplash() : const ScreenHome();
+    return isLoading ? const ScreenSplash() : const ScreenHome();
   }
 }
