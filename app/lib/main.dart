@@ -2,8 +2,12 @@ import 'package:app/core/const.dart';
 import 'package:app/l10n/app_localizations.dart';
 import 'package:app/layer/ui/root.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_dotenv/flutter_dotenv.dart';
 
-void main() {
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  await dotenv.load(fileName: ".env");
+
   runApp(const _App());
 }
 
