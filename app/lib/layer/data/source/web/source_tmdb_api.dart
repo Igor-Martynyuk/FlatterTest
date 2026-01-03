@@ -4,7 +4,7 @@ import 'dart:io';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 
-import '../../domain/use/case/fetch/movies/port_fetch_movies.dart';
+import '../../../domain/use/case/fetch/movies/port_fetch_movies.dart';
 
 class SourceTmdbAPI implements PortFetchMovies {
   static final SourceTmdbAPI instance = SourceTmdbAPI._();
