@@ -1,3 +1,4 @@
+import 'package:app/l10n/app_localizations.dart';
 import 'package:flutter/material.dart';
 
 class ScreenHome extends StatelessWidget {
@@ -6,7 +7,10 @@ class ScreenHome extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: Text("Movies"), centerTitle: false),
+      appBar: AppBar(
+        title: Text(AppLocalizations.of(context)!.movies),
+        centerTitle: false,
+      ),
       body: Center(child: Text("HomeScreen")),
     );
   }
