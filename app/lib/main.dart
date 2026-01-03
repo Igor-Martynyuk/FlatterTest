@@ -1,7 +1,5 @@
+import 'package:app/layer/ui/root.dart';
 import 'package:flutter/material.dart';
-
-import 'layer/ui/home/screen_home.dart';
-import 'layer/ui/splash/screen_splash.dart';
 
 void main() {
   runApp(const _App());
@@ -15,7 +13,7 @@ class _App extends StatelessWidget {
     return MaterialApp(
       title: 'Flutter Playground',
       theme: ThemeData(colorScheme: .fromSeed(seedColor: Colors.deepPurple)),
-      home: true == true ? const ScreenSplash() : const ScreenHome(),
+      home: Root(),
     );
   }
 }

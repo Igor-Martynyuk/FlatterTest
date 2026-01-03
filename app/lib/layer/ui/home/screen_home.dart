@@ -6,7 +6,7 @@ class ScreenHome extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: Text("Movies")),
+      appBar: AppBar(title: Text("Movies"), centerTitle: false),
       body: Center(child: Text("HomeScreen")),
     );
   }
