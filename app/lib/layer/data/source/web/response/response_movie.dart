@@ -15,18 +15,18 @@ class ResponseMovie {
   static const String _keyVoteCount = "vote_count";
 
   final bool adult;
-  final String backdropPath;
+  final String? backdropPath;
   final List<int> genreIds;
   final int id;
   final String originalLanguage;
   final String originalTitle;
   final String overview;
-  final double popularity;
-  final String posterPath;
+  final num popularity;
+  final String? posterPath;
   final String releaseDate;
   final String title;
   final bool video;
-  final double voteAverage;
+  final num voteAverage;
   final int voteCount;
 
   ResponseMovie({
@@ -50,24 +50,24 @@ class ResponseMovie {
     return switch (json) {
       {
         _keyAdult: bool adult,
-        _keyBackdropPath: String backdropPath,
-        _keyGenreIds: List<int> genreIds,
+        _keyBackdropPath: String? backdropPath,
+        _keyGenreIds: List genreIds,
         _keyId: int id,
         _keyOriginalLanguage: String originalLanguage,
         _keyOriginalTitle: String originalTitle,
         _keyOverview: String overview,
-        _keyPopularity: double popularity,
-        _keyPosterPath: String posterPath,
+        _keyPopularity: num popularity,
+        _keyPosterPath: String? posterPath,
         _keyReleaseDate: String releaseDate,
         _keyTitle: String title,
         _keyVideo: bool video,
-        _keyVoteAverage: double voteAverage,
+        _keyVoteAverage: num voteAverage,
         _keyVoteCount: int voteCount,
       } =>
         ResponseMovie(
           adult: adult,
           backdropPath: backdropPath,
-          genreIds: genreIds,
+          genreIds: genreIds.cast<int>(),
           id: id,
           originalLanguage: originalLanguage,
           originalTitle: originalTitle,

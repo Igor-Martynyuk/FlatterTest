@@ -19,7 +19,7 @@ class _StateRoot extends State<Root> {
   Future<void> _load() async {
     var a = await useCase.invoke();
     for (var item in a) {
-      debugPrint(item.name);
+      debugPrint(item.title);
     }
     if (mounted) setState(() => isLoading = false);
   }

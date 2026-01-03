@@ -1,6 +1,7 @@
 import 'dart:convert';
 import 'dart:io';
 
+import 'package:app/layer/data/source/web/response/response_movies.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 
@@ -18,7 +19,7 @@ class SourceTmdbAPI implements PortFetchMovies {
   SourceTmdbAPI._();
 
   @override
-  Future<List<dynamic>> loadTopRated(int page) async {
+  Future<ResponseMovies> loadTopRated(int page) async {
     final url = Uri(
       scheme: "https",
       host: "api.themoviedb.org",
@@ -38,7 +39,6 @@ class SourceTmdbAPI implements PortFetchMovies {
     final body = await response.transform(utf8.decoder).join();
     debugPrint(body);
 
-    return (jsonDecode(body) as Map<String, dynamic>)['results']
-        as List<dynamic>;
+    return ResponseMovies.fromJson(jsonDecode(body) as Map<String, dynamic>);
   }
 }
