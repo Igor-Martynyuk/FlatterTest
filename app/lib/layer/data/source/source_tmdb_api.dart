@@ -1,14 +1,14 @@
 import 'dart:io';
 import 'package:app/layer/domain/fetch/movies/port_fetch_movies.dart';
 
-class TmdbAPI implements PortFetchMovies {
-  static final TmdbAPI instance = TmdbAPI._();
+class SourceTmdbAPI implements PortFetchMovies {
+  static final SourceTmdbAPI instance = SourceTmdbAPI._();
 
   final envToken = 'TMB_ACCESS_TOKEN';
   final HttpClient _client = HttpClient()
     ..connectionTimeout = const Duration(seconds: 15);
 
-  TmdbAPI._();
+  SourceTmdbAPI._();
 
   String getToken() => String.fromEnvironment(envToken);
 
