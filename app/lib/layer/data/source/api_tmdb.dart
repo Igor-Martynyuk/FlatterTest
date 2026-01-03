@@ -1,7 +1,7 @@
 import 'dart:io';
-import 'package:app/layer/data/source/web/api/api_web.dart';
+import 'package:app/layer/domain/fetch/movies/port_fetch_movies.dart';
 
-class TmdbAPI implements WebAPI {
+class TmdbAPI implements PortFetchMovies {
   static final TmdbAPI instance = TmdbAPI._();
 
   final envToken = 'TMB_ACCESS_TOKEN';
