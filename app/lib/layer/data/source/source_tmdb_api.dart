@@ -1,10 +1,12 @@
 import 'dart:io';
-import 'package:app/layer/domain/fetch/movies/port_fetch_movies.dart';
+
+import '../../domain/use/case/fetch/movies/port_fetch_movies.dart';
 
 class SourceTmdbAPI implements PortFetchMovies {
   static final SourceTmdbAPI instance = SourceTmdbAPI._();
 
-  final envToken = 'TMB_ACCESS_TOKEN';
+  final envToken = "TMB_ACCESS_TOKEN";
+
   final HttpClient _client = HttpClient()
     ..connectionTimeout = const Duration(seconds: 15);
 
@@ -13,7 +15,7 @@ class SourceTmdbAPI implements PortFetchMovies {
   String getToken() => String.fromEnvironment(envToken);
 
   @override
-  Future<int> loadTopRated(int page) async {
+  Future<String> loadTopRated(int page) async {
     final url = Uri(
       scheme: "https",
       host: "api.themoviedb.org",
@@ -30,6 +32,7 @@ class SourceTmdbAPI implements PortFetchMovies {
     request.headers.add(HttpHeaders.authorizationHeader, 'Bearer $getToken()');
 
     final response = await request.close();
-    return response.statusCode;
+
+    return response.join();
   }
 }

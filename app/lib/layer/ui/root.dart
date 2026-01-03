@@ -1,7 +1,7 @@
-import 'package:app/layer/domain/fetch/movies/case_fetch_movies.dart';
 import 'package:app/layer/ui/splash/screen_splash.dart';
 import 'package:flutter/material.dart';
 
+import '../domain/use/case/fetch/movies/case_fetch_movies.dart';
 import 'home/screen_home.dart';
 
 class Root extends StatefulWidget {
@@ -17,7 +17,8 @@ class _StateRoot extends State<Root> {
   final CaseFetchMovies useCase = CaseFetchMovies();
 
   Future<void> _load() async {
-    await useCase.invoke();
+    var a = await useCase.invoke();
+    debugPrint(a);
     if (mounted) setState(() => isLoading = false);
   }
 
