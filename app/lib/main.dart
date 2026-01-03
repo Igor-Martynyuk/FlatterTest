@@ -11,9 +11,6 @@ void main() {
 class _App extends StatelessWidget {
   const _App();
 
-  final String _code_en = 'en';
-  final String _code_ua = 'uk';
-
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
