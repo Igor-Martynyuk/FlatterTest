@@ -1,3 +1,3 @@
 abstract class PortFetchMovies {
-  Future<String> loadTopRated(int page);
+  Future<List<dynamic>> loadTopRated(int page);
 }
