@@ -1,3 +1,4 @@
+import 'package:app/core/const.dart';
 import 'package:app/layer/ui/root.dart';
 import 'package:flutter/material.dart';
 
@@ -11,7 +12,7 @@ class _App extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'Flutter Playground',
+      title: Const.appName,
       theme: ThemeData(colorScheme: .fromSeed(seedColor: Colors.deepPurple)),
       home: const Root(),
     );
