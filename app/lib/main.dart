@@ -13,7 +13,7 @@ class _App extends StatelessWidget {
     return MaterialApp(
       title: 'Flutter Playground',
       theme: ThemeData(colorScheme: .fromSeed(seedColor: Colors.deepPurple)),
-      home: Root(),
+      home: const Root(),
     );
   }
 }
