@@ -2,7 +2,6 @@ import 'package:app/core/const.dart';
 import 'package:app/l10n/app_localizations.dart';
 import 'package:app/layer/ui/root.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_localizations/flutter_localizations.dart';
 
 void main() {
   runApp(const _App());
