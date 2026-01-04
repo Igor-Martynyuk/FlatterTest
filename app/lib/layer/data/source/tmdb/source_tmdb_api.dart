@@ -1,7 +1,7 @@
 import 'dart:convert';
 import 'dart:io';
 
-import 'package:app/layer/data/source/tmdb/response/response_movies.dart';
+import 'package:app/layer/data/source/tmdb/response/response_tmdb_movies.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 
@@ -19,7 +19,7 @@ class SourceTmdbAPI implements PortFetchMovies {
   SourceTmdbAPI._();
 
   @override
-  Future<ResponseMovies> loadTopRated(int page) async {
+  Future<ResponseTmdbMovies> loadTopRated(int page) async {
     final url = Uri(
       scheme: "https",
       host: "api.themoviedb.org",
@@ -39,6 +39,6 @@ class SourceTmdbAPI implements PortFetchMovies {
     final body = await response.transform(utf8.decoder).join();
     debugPrint(body);
 
-    return ResponseMovies.fromJson(jsonDecode(body) as Map<String, dynamic>);
+    return ResponseTmdbMovies.fromJson(jsonDecode(body) as Map<String, dynamic>);
   }
 }

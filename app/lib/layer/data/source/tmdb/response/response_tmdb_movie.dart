@@ -1,4 +1,4 @@
-class ResponseMovie {
+class ResponseTmdbMovie {
   static const String _keyAdult = "adult";
   static const String _keyBackdropPath = "backdrop_path";
   static const String _keyGenreIds = "genre_ids";
@@ -29,7 +29,7 @@ class ResponseMovie {
   final num voteAverage;
   final int voteCount;
 
-  ResponseMovie({
+  ResponseTmdbMovie({
     required this.adult,
     required this.backdropPath,
     required this.genreIds,
@@ -46,7 +46,7 @@ class ResponseMovie {
     required this.voteCount,
   });
 
-  factory ResponseMovie.fromJson(Map<String, dynamic> json) {
+  factory ResponseTmdbMovie.fromJson(Map<String, dynamic> json) {
     return switch (json) {
       {
         _keyAdult: bool adult,
@@ -64,7 +64,7 @@ class ResponseMovie {
         _keyVoteAverage: num voteAverage,
         _keyVoteCount: int voteCount,
       } =>
-        ResponseMovie(
+        ResponseTmdbMovie(
           adult: adult,
           backdropPath: backdropPath,
           genreIds: genreIds.cast<int>(),
