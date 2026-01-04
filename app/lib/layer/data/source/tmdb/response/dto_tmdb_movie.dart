@@ -6,12 +6,12 @@ class DtoTmdbMovie {
   final String originalLanguage;
   final String originalTitle;
   final String overview;
-  final num popularity;
+  final double popularity;
   final String? posterPath;
   final String releaseDate;
   final String title;
   final bool video;
-  final num voteAverage;
+  final double voteAverage;
   final int voteCount;
 
   DtoTmdbMovie({

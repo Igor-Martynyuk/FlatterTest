@@ -1,14 +1,16 @@
 import 'dart:convert';
 import 'dart:io';
 
+import 'package:app/core/RequestFailedException.dart';
 import 'package:app/layer/data/source/tmdb/mapper_tmb_api.dart';
 import 'package:app/layer/data/source/tmdb/response/dto_tmdb_movies.dart';
 
 import '../../../domain/use/case/fetch/movies/port_fetch_movies.dart';
 
 class SourceTmdbAPI implements PortFetchMovies {
-  final MapperTmbApi _mapper;
+  static const msgTopRatedFailed = "top rated movies loading failed";
 
+  final MapperTmbApi _mapper;
   final String _token;
   final HttpClient _client = HttpClient()
     ..connectionTimeout = const Duration(seconds: 15);
@@ -33,8 +35,12 @@ class SourceTmdbAPI implements PortFetchMovies {
     request.headers.add(HttpHeaders.authorizationHeader, _token);
 
     final response = await request.close();
-    final body = await response.transform(utf8.decoder).join();
 
+    if (response.statusCode != HttpStatus.ok) {
+      throw RequestFailedException(msgTopRatedFailed, response.statusCode);
+    }
+
+    final body = await response.transform(utf8.decoder).join();
     return _mapper.mapTmdbMovies(jsonDecode(body) as Map<String, dynamic>);
   }
 }

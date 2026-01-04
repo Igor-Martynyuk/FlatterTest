@@ -38,7 +38,10 @@ class _StateRoot extends State<Root> {
   void initState() {
     super.initState();
 
-    token = "$_tokenPrefix ${dotenv.env[_envToken]}";
+    final rawToken = dotenv.env[_envToken];
+    if(rawToken == null || rawToken.isEmpty) throw StateError("token wasn't found");
+
+    token = "$_tokenPrefix $rawToken";
     mapper = MapperTmbApi();
     moviesPort =  SourceTmdbAPI(mapper, token);
     fetchMoviesCase = CaseFetchMovies(moviesPort);

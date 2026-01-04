@@ -8,6 +8,6 @@ class CaseFetchMovies {
 
   Future<List<DtoTmdbMovie>> invoke() async {
     final response = await source.loadTopRated(1);
-    return Future.value(response.results);
+    return response.results;
   }
 }
