@@ -3,22 +3,17 @@ import 'dart:io';
 
 import 'package:app/layer/data/source/tmdb/mapper_tmb_api.dart';
 import 'package:app/layer/data/source/tmdb/response/response_tmdb_movies.dart';
-import 'package:flutter/cupertino.dart';
-import 'package:flutter_dotenv/flutter_dotenv.dart';
 
 import '../../../domain/use/case/fetch/movies/port_fetch_movies.dart';
 
 class SourceTmdbAPI implements PortFetchMovies {
-  static final SourceTmdbAPI instance = SourceTmdbAPI._();
-  static final _envToken = 'TMB_ACCESS_TOKEN';
+  final MapperTmbApi _mapper;
 
-  final token = "Bearer ${dotenv.env[_envToken]}";
-  final mapper = MapperTmbApi();
-
+  final String _token;
   final HttpClient _client = HttpClient()
     ..connectionTimeout = const Duration(seconds: 15);
 
-  SourceTmdbAPI._();
+  SourceTmdbAPI(this._mapper, this._token);
 
   @override
   Future<ResponseTmdbMovies> loadTopRated(int page) async {
@@ -35,11 +30,11 @@ class SourceTmdbAPI implements PortFetchMovies {
     );
 
     final request = await _client.getUrl(url);
-    request.headers.add(HttpHeaders.authorizationHeader, token);
+    request.headers.add(HttpHeaders.authorizationHeader, _token);
 
     final response = await request.close();
     final body = await response.transform(utf8.decoder).join();
 
-    return mapper.mapTmdbMovies(jsonDecode(body) as Map<String, dynamic>);
+    return _mapper.mapTmdbMovies(jsonDecode(body) as Map<String, dynamic>);
   }
 }
