@@ -5,6 +5,7 @@ class DtoMovie {
   final double? rate;
   final String? overview;
   final String? releaseDate;
+  final bool? isFavorite;
 
   DtoMovie(
     this.id,
@@ -13,5 +14,6 @@ class DtoMovie {
     this.rate,
     this.overview,
     this.releaseDate,
+    this.isFavorite,
   );
 }
