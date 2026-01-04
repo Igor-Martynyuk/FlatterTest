@@ -2,7 +2,7 @@ import 'dart:convert';
 import 'dart:io';
 
 import 'package:app/layer/data/source/tmdb/mapper_tmb_api.dart';
-import 'package:app/layer/data/source/tmdb/response/response_tmdb_movies.dart';
+import 'package:app/layer/data/source/tmdb/response/dto_tmdb_movies.dart';
 
 import '../../../domain/use/case/fetch/movies/port_fetch_movies.dart';
 
@@ -16,7 +16,7 @@ class SourceTmdbAPI implements PortFetchMovies {
   SourceTmdbAPI(this._mapper, this._token);
 
   @override
-  Future<ResponseTmdbMovies> loadTopRated(int page) async {
+  Future<DtoTmdbMovies> loadTopRated(int page) async {
     final url = Uri(
       scheme: "https",
       host: "api.themoviedb.org",

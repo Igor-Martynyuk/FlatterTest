@@ -1,5 +1,5 @@
-import '../../../../../data/source/tmdb/response/response_tmdb_movies.dart';
+import '../../../../../data/source/tmdb/response/dto_tmdb_movies.dart';
 
 abstract class PortFetchMovies {
-  Future<ResponseTmdbMovies> loadTopRated(int page);
+  Future<DtoTmdbMovies> loadTopRated(int page);
 }

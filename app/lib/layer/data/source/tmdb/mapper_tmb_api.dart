@@ -1,5 +1,5 @@
-import 'package:app/layer/data/source/tmdb/response/response_tmdb_movie.dart';
-import 'package:app/layer/data/source/tmdb/response/response_tmdb_movies.dart';
+import 'package:app/layer/data/source/tmdb/response/dto_tmdb_movie.dart';
+import 'package:app/layer/data/source/tmdb/response/dto_tmdb_movies.dart';
 
 class MapperTmbApi {
   static const String _keyAdult = "adult";
@@ -23,7 +23,7 @@ class MapperTmbApi {
   static const String _failedErrorMsg = "Failed to deserialize response body";
   Exception get failedException => FormatException(_failedErrorMsg);
 
-  ResponseTmdbMovie mapTmdbMovie(Map<String, dynamic> from) {
+  DtoTmdbMovie mapTmdbMovie(Map<String, dynamic> from) {
     return switch (from) {
       {
         _keyAdult: bool adult,
@@ -40,7 +40,7 @@ class MapperTmbApi {
         _keyVideo: bool video,
         _keyVoteAverage: num voteAverage,
         _keyVoteCount: int voteCount,
-      } => ResponseTmdbMovie(
+      } => DtoTmdbMovie(
         adult: adult,
         backdropPath: backdropPath,
         genreIds: genreIds.cast<int>(),
@@ -56,19 +56,22 @@ class MapperTmbApi {
         voteAverage: voteAverage,
         voteCount: voteCount,
       ),
-      _ => throw failedException,
+      _ => throw failedException
     };
   }
 
-  ResponseTmdbMovies mapTmdbMovies(Map<String, dynamic> from) {
+  DtoTmdbMovies mapTmdbMovies(Map<String, dynamic> from) {
     return switch (from) {
-      {_keyPage: int page, _keyResults: List results} => ResponseTmdbMovies(
+      {
+        _keyPage: int page,
+        _keyResults: List results
+      } => DtoTmdbMovies(
         page: page,
         results: results
             .map((e) => mapTmdbMovie(e as Map<String, dynamic>))
             .toList(),
       ),
-      _ => throw failedException,
+      _ => throw failedException
     };
   }
 }

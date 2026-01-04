@@ -1,4 +1,4 @@
-class ResponseTmdbMovie {
+class DtoTmdbMovie {
   final bool adult;
   final String? backdropPath;
   final List<int> genreIds;
@@ -14,7 +14,7 @@ class ResponseTmdbMovie {
   final num voteAverage;
   final int voteCount;
 
-  ResponseTmdbMovie({
+  DtoTmdbMovie({
     required this.adult,
     required this.backdropPath,
     required this.genreIds,
