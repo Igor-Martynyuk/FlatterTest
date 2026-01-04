@@ -1,27 +1,45 @@
-import 'package:app/core/const.dart';
 import 'package:app/l10n/app_localizations.dart';
 import 'package:app/layer/ui/root.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 
+import 'layer/data/source/tmdb/mapper_tmb_api.dart';
+import 'layer/data/source/tmdb/source_tmdb_api.dart';
+import 'layer/domain/use/case/fetch/movies/port_fetch_movies.dart';
+
+const _appName = "Flutter Playground";
+const _envFileName = ".env";
+const _tokenType = "Bearer";
+const _tokenEnv = 'TMB_ACCESS_TOKEN';
+const _tokenFailedMsg = "token wasn't found";
+
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
-  await dotenv.load(fileName: ".env");
+  await dotenv.load(fileName: _envFileName);
 
-  runApp(const _App());
+  runApp(_App());
 }
 
 class _App extends StatelessWidget {
-  const _App();
+  late final SourceTmdbAPI _tmdbApi;
+
+  _App(){
+    final rawToken = dotenv.env[_tokenEnv];
+    if (rawToken == null || rawToken.isEmpty) throw StateError(_tokenFailedMsg);
+
+    final token = "$_tokenType $rawToken";
+    final mapper = MapperTmbApi();
+    _tmdbApi = SourceTmdbAPI(mapper, token);
+  }
 
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: Const.appName,
+      title: _appName,
       localizationsDelegates: AppLocalizations.localizationsDelegates,
       supportedLocales: AppLocalizations.supportedLocales,
       theme: ThemeData(colorScheme: .fromSeed(seedColor: Colors.deepPurple)),
-      home: const Root(),
+      home: Root(_tmdbApi as PortFetchMovies),
     );
   }
 }

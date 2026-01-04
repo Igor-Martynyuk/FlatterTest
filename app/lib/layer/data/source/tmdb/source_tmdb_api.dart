@@ -1,7 +1,7 @@
 import 'dart:convert';
 import 'dart:io';
 
-import 'package:app/core/RequestFailedException.dart';
+import 'package:app/core/request_failed_exception.dart';
 import 'package:app/layer/data/source/tmdb/mapper_tmb_api.dart';
 import 'package:app/layer/data/source/tmdb/response/dto_tmdb_movies.dart';
 
