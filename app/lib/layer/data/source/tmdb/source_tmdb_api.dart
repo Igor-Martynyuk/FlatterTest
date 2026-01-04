@@ -4,10 +4,9 @@ import 'dart:io';
 import 'package:app/core/request_failed_exception.dart';
 import 'package:app/layer/data/source/tmdb/mapper_tmb_api.dart';
 
-import '../../../domain/use/case/fetch/movies/port_fetch_movies.dart';
-import 'dto/dto_tmdb_movies.dart';
+import 'dto_tmdb_movies.dart';
 
-class SourceTmdbAPI implements PortFetchMovies {
+class SourceTmdbAPI {
   static const msgTopRatedFailed = "top rated movies loading failed";
 
   final MapperTmbApi _mapper;
@@ -17,7 +16,6 @@ class SourceTmdbAPI implements PortFetchMovies {
 
   SourceTmdbAPI(this._mapper, this._token);
 
-  @override
   Future<DtoTmdbMovies> loadTopRated(int page) async {
     final url = Uri(
       scheme: "https",

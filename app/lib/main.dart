@@ -1,4 +1,6 @@
 import 'package:app/l10n/app_localizations.dart';
+import 'package:app/layer/data/repository/movies/mapper_movies.dart';
+import 'package:app/layer/data/repository/movies/repository_movies.dart';
 import 'package:app/layer/ui/root.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
@@ -20,11 +22,10 @@ void main() async {
   final rawToken = dotenv.env[_tokenEnv];
   if (rawToken == null || rawToken.isEmpty) throw StateError(_tokenFailedMsg);
 
-  final token = "$_tokenType $rawToken";
-  final mapper = MapperTmbApi();
-  final tmdbApi = SourceTmdbAPI(mapper, token);
+  final tmdbApi = SourceTmdbAPI(MapperTmbApi(), "$_tokenType $rawToken");
+  final moviesRepository = RepositoryMovies(tmdbApi, MapperMovies());
 
-  final PortFetchMovies fetchMoviesPort = tmdbApi;
+  final PortFetchMovies fetchMoviesPort = moviesRepository;
 
   runApp(_App(fetchMoviesPort));
 }

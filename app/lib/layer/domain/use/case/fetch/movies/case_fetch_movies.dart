@@ -1,13 +1,10 @@
+import 'package:app/layer/data/repository/movies/dto_movie.dart';
 import 'package:app/layer/domain/use/case/fetch/movies/port_fetch_movies.dart';
-import '../../../../../data/source/tmdb/dto/dto_tmdb_movie.dart';
 
 class CaseFetchMovies {
   final PortFetchMovies source;
 
   CaseFetchMovies(this.source);
 
-  Future<List<DtoTmdbMovie>> invoke() async {
-    final response = await source.loadTopRated(1);
-    return response.results;
-  }
+  Future<List<DtoMovie>> invoke() => source.loadTopRated(1);
 }

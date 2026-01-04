@@ -1,5 +1,5 @@
-import '../../../../../data/source/tmdb/dto/dto_tmdb_movies.dart';
+import 'package:app/layer/data/repository/movies/dto_movie.dart';
 
 abstract class PortFetchMovies {
-  Future<DtoTmdbMovies> loadTopRated(int page);
+  Future<List<DtoMovie>> loadTopRated(int page);
 }

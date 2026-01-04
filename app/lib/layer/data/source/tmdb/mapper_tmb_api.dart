@@ -1,5 +1,5 @@
-import 'dto/dto_tmdb_movie.dart';
-import 'dto/dto_tmdb_movies.dart';
+import 'dto_tmdb_movie.dart';
+import 'dto_tmdb_movies.dart';
 
 class MapperTmbApi {
   static const String _keyAdult = "adult";
