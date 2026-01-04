@@ -3,9 +3,9 @@ import 'dart:io';
 
 import 'package:app/core/request_failed_exception.dart';
 import 'package:app/layer/data/source/tmdb/mapper_tmb_api.dart';
-import 'package:app/layer/data/source/tmdb/response/dto_tmdb_movies.dart';
 
 import '../../../domain/use/case/fetch/movies/port_fetch_movies.dart';
+import 'dto/dto_tmdb_movies.dart';
 
 class SourceTmdbAPI implements PortFetchMovies {
   static const msgTopRatedFailed = "top rated movies loading failed";

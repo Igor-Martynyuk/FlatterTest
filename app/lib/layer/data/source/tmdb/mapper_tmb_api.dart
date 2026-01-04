@@ -1,5 +1,5 @@
-import 'package:app/layer/data/source/tmdb/response/dto_tmdb_movie.dart';
-import 'package:app/layer/data/source/tmdb/response/dto_tmdb_movies.dart';
+import 'dto/dto_tmdb_movie.dart';
+import 'dto/dto_tmdb_movies.dart';
 
 class MapperTmbApi {
   static const String _keyAdult = "adult";
@@ -23,7 +23,7 @@ class MapperTmbApi {
   static const String _failedErrorMsg = "Failed to deserialize response body";
   final Exception _failedException = FormatException(_failedErrorMsg);
 
-  DtoTmdbMovie mapTmdbMovie(Map<String, dynamic> from) {
+  DtoTmdbMovie _mapTmdbMovie(Map<String, dynamic> from) {
     return switch (from) {
       {
         _keyAdult: bool adult,
@@ -68,7 +68,7 @@ class MapperTmbApi {
       } => DtoTmdbMovies(
         page: page,
         results: results
-            .map((e) => mapTmdbMovie(e as Map<String, dynamic>))
+            .map((e) => _mapTmdbMovie(e as Map<String, dynamic>))
             .toList(),
       ),
       _ => throw _failedException

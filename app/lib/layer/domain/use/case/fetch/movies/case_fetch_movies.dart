@@ -1,5 +1,5 @@
 import 'package:app/layer/domain/use/case/fetch/movies/port_fetch_movies.dart';
-import '../../../../../data/source/tmdb/response/dto_tmdb_movie.dart';
+import '../../../../../data/source/tmdb/dto/dto_tmdb_movie.dart';
 
 class CaseFetchMovies {
   final PortFetchMovies source;
