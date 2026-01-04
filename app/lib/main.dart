@@ -17,20 +17,22 @@ void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await dotenv.load(fileName: _envFileName);
 
-  runApp(_App());
+  final rawToken = dotenv.env[_tokenEnv];
+  if (rawToken == null || rawToken.isEmpty) throw StateError(_tokenFailedMsg);
+
+  final token = "$_tokenType $rawToken";
+  final mapper = MapperTmbApi();
+  final tmdbApi = SourceTmdbAPI(mapper, token);
+
+  final PortFetchMovies fetchMoviesPort = tmdbApi;
+
+  runApp(_App(fetchMoviesPort));
 }
 
 class _App extends StatelessWidget {
-  late final SourceTmdbAPI _tmdbApi;
+  final PortFetchMovies fetchMoviesPort;
 
-  _App(){
-    final rawToken = dotenv.env[_tokenEnv];
-    if (rawToken == null || rawToken.isEmpty) throw StateError(_tokenFailedMsg);
-
-    final token = "$_tokenType $rawToken";
-    final mapper = MapperTmbApi();
-    _tmdbApi = SourceTmdbAPI(mapper, token);
-  }
+  const _App(this.fetchMoviesPort);
 
   @override
   Widget build(BuildContext context) {
@@ -39,7 +41,7 @@ class _App extends StatelessWidget {
       localizationsDelegates: AppLocalizations.localizationsDelegates,
       supportedLocales: AppLocalizations.supportedLocales,
       theme: ThemeData(colorScheme: .fromSeed(seedColor: Colors.deepPurple)),
-      home: Root(_tmdbApi as PortFetchMovies),
+      home: Root(fetchMoviesPort),
     );
   }
 }
