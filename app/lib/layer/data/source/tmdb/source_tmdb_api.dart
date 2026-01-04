@@ -1,7 +1,7 @@
 import 'dart:convert';
 import 'dart:io';
 
-import 'package:app/layer/data/source/web/response/response_movies.dart';
+import 'package:app/layer/data/source/tmdb/response/response_movies.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 

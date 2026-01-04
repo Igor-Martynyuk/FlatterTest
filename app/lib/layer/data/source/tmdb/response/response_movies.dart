@@ -1,4 +1,4 @@
-import 'package:app/layer/data/source/web/response/response_movie.dart';
+import 'package:app/layer/data/source/tmdb/response/response_movie.dart';
 
 class ResponseMovies {
   static const String _keyPage = "page";
