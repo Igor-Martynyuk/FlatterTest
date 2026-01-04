@@ -4,10 +4,10 @@ import 'package:app/layer/data/source/tmdb/dto_tmdb_movie.dart';
 class MapperMovies {
   DtoMovie mapMovieDto(DtoTmdbMovie tmdbDto) {
     return DtoMovie(
-        tmdbDto.id,
-        tmdbDto.posterPath!,
+        tmdbDto.id!,
+        tmdbDto.posterPath,
         tmdbDto.title,
-        tmdbDto.popularity,
+        tmdbDto.popularity?.toDouble(),
         tmdbDto.overview,
         tmdbDto.releaseDate
     );
