@@ -21,7 +21,7 @@ class MapperTmbApi {
   static const String _keyResults = "results";
 
   static const String _failedErrorMsg = "Failed to deserialize response body";
-  Exception get failedException => FormatException(_failedErrorMsg);
+  final Exception _failedException = FormatException(_failedErrorMsg);
 
   DtoTmdbMovie mapTmdbMovie(Map<String, dynamic> from) {
     return switch (from) {
@@ -56,7 +56,7 @@ class MapperTmbApi {
         voteAverage: voteAverage,
         voteCount: voteCount,
       ),
-      _ => throw failedException
+      _ => throw _failedException
     };
   }
 
@@ -71,7 +71,7 @@ class MapperTmbApi {
             .map((e) => mapTmdbMovie(e as Map<String, dynamic>))
             .toList(),
       ),
-      _ => throw failedException
+      _ => throw _failedException
     };
   }
 }
