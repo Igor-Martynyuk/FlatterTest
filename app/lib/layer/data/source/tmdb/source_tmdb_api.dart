@@ -1,6 +1,7 @@
 import 'dart:convert';
 import 'dart:io';
 
+import 'package:app/layer/data/source/tmdb/mapper_tmb_api.dart';
 import 'package:app/layer/data/source/tmdb/response/response_tmdb_movies.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
@@ -12,6 +13,7 @@ class SourceTmdbAPI implements PortFetchMovies {
   static final _envToken = 'TMB_ACCESS_TOKEN';
 
   final token = "Bearer ${dotenv.env[_envToken]}";
+  final mapper = MapperTmbApi();
 
   final HttpClient _client = HttpClient()
     ..connectionTimeout = const Duration(seconds: 15);
@@ -37,8 +39,7 @@ class SourceTmdbAPI implements PortFetchMovies {
 
     final response = await request.close();
     final body = await response.transform(utf8.decoder).join();
-    debugPrint(body);
 
-    return ResponseTmdbMovies.fromJson(jsonDecode(body) as Map<String, dynamic>);
+    return mapper.mapTmdbMovies(jsonDecode(body) as Map<String, dynamic>);
   }
 }
