@@ -1,7 +1,6 @@
+import 'package:app/layer/data/source/tmdb/response_movie.dart';
+import 'package:app/layer/data/source/tmdb/response_page.dart';
 import 'package:flutter/cupertino.dart';
-
-import 'dto_tmdb_movie.dart';
-import 'dto_tmdb_page.dart';
 
 class MapperTmbApi {
   static const String _keyAdult = "adult";
@@ -25,7 +24,7 @@ class MapperTmbApi {
   static const String _failedErrorMsg = "Failed to deserialize response body";
   final Exception _failedException = FormatException(_failedErrorMsg);
 
-  DtoTmdbMovie _mapTmdbMovie(Map<String, dynamic> from) {
+  ResponseMovie _mapTmdbMovie(Map<String, dynamic> from) {
     return switch (from) {
       {
         _keyAdult: bool adult,
@@ -43,7 +42,7 @@ class MapperTmbApi {
         _keyVoteAverage: double voteAverage,
         _keyVoteCount: int voteCount,
       } =>
-        DtoTmdbMovie(
+        ResponseMovie(
           adult: adult,
           backdropPath: backdropPath,
           genreIds: genreIds.cast<int>(),
@@ -63,8 +62,8 @@ class MapperTmbApi {
     };
   }
 
-  List<DtoTmdbMovie> _mapTmdbMovies(List from) {
-    final result = List<DtoTmdbMovie>.empty(growable: true);
+  List<ResponseMovie> _mapTmdbMovies(List from) {
+    final result = List<ResponseMovie>.empty(growable: true);
 
     for (Map<String, dynamic> item in from) {
       try {
@@ -78,13 +77,15 @@ class MapperTmbApi {
     return result;
   }
 
-  DtoTmdbPage mapTmdbPage(Map<String, dynamic> from) {
+  ResponsePage mapTmdbPage(Map<String, dynamic> from) {
     return switch (from) {
-      {_keyPage: int page, _keyResults: List results} => DtoTmdbPage(
+      {_keyPage: int page, _keyResults: List results} => ResponsePage(
         num: page,
         results: _mapTmdbMovies(results),
       ),
       _ => throw _failedException,
     };
   }
+
+
 }

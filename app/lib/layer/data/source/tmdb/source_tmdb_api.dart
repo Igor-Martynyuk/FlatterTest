@@ -3,8 +3,7 @@ import 'dart:io';
 
 import 'package:app/core/request_failed_exception.dart';
 import 'package:app/layer/data/source/tmdb/mapper_tmb_api.dart';
-
-import 'dto_tmdb_page.dart';
+import 'package:app/layer/data/source/tmdb/response_page.dart';
 
 class SourceTmdbAPI {
   static const msgTopRatedFailed = "top rated movies loading failed";
@@ -16,7 +15,7 @@ class SourceTmdbAPI {
 
   SourceTmdbAPI(this._mapper, this._token);
 
-  Future<DtoTmdbPage> loadTopRated(int page) async {
+  Future<ResponsePage> loadTopRated(int page) async {
     final url = Uri(
       scheme: "https",
       host: "api.themoviedb.org",

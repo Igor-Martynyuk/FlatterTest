@@ -1,11 +1,11 @@
 import 'package:app/layer/data/repository/movies/dto_movie.dart';
 import 'package:app/layer/data/repository/movies/dto_page.dart';
-import 'package:app/layer/data/source/tmdb/dto_tmdb_movie.dart';
-import 'package:app/layer/data/source/tmdb/dto_tmdb_page.dart';
+import 'package:app/layer/data/source/tmdb/response_movie.dart';
+import 'package:app/layer/data/source/tmdb/response_page.dart';
 import 'package:flutter/cupertino.dart';
 
 class MapperMovies {
-  DtoPage mapPageDto(DtoTmdbPage tmbPage) {
+  DtoPage mapPageDto(ResponsePage tmbPage) {
     final movies = List<DtoMovie>.empty(growable: true);
 
     for (var item in tmbPage.results) {
@@ -20,7 +20,7 @@ class MapperMovies {
     return DtoPage(tmbPage.num, movies);
   }
 
-  DtoMovie _mapMovieDto(DtoTmdbMovie tmdbDto) {
+  DtoMovie _mapMovieDto(ResponseMovie tmdbDto) {
     return DtoMovie(
       tmdbDto.id!,
       tmdbDto.posterPath,
