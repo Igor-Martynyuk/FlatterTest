@@ -1,15 +1,13 @@
+import 'package:path/path.dart';
+import 'package:flutter/material.dart';
+import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:app/l10n/app_localizations.dart';
 import 'package:app/layer/data/repository/movies/mapper_movies.dart';
 import 'package:app/layer/data/repository/movies/repository_movies.dart';
 import 'package:app/layer/ui/root.dart';
-import 'package:flutter/material.dart';
-import 'package:flutter_dotenv/flutter_dotenv.dart';
-import 'package:flutter/widgets.dart';
-import 'package:path/path.dart';
 import 'package:sqflite/sqflite.dart';
-
-import 'layer/data/source/tmdb/mapper_tmb_api.dart';
-import 'layer/data/source/tmdb/source_tmdb_api.dart';
+import 'layer/data/source/web/mapper_tmb_api.dart';
+import 'layer/data/source/web/source_tmdb_api.dart';
 import 'layer/domain/use/case/fetch/movies/port_fetch_movies.dart';
 
 const _appName = "Flutter Playground";

@@ -1,6 +1,6 @@
-import 'package:app/layer/data/source/tmdb/response_movie.dart';
-import 'package:app/layer/data/source/tmdb/response_page.dart';
 import 'package:flutter/cupertino.dart';
+import 'package:app/layer/data/source/web/response_movie.dart';
+import 'package:app/layer/data/source/web/response_page.dart';
 
 class MapperTmbApi {
   static const String _keyAdult = "adult";
@@ -86,6 +86,4 @@ class MapperTmbApi {
       _ => throw _failedException,
     };
   }
-
-
 }

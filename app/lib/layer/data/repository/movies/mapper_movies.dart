@@ -1,8 +1,8 @@
+import 'package:flutter/cupertino.dart';
 import 'package:app/layer/data/repository/movies/dto_movie.dart';
 import 'package:app/layer/data/repository/movies/dto_page.dart';
-import 'package:app/layer/data/source/tmdb/response_movie.dart';
-import 'package:app/layer/data/source/tmdb/response_page.dart';
-import 'package:flutter/cupertino.dart';
+import '../../source/web/response_movie.dart';
+import '../../source/web/response_page.dart';
 
 class MapperMovies {
   DtoPage mapPageDto(ResponsePage tmbPage) {
