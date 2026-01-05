@@ -10,7 +10,7 @@ class MapperMovies {
 
     for (var item in tmbPage.results) {
       try {
-        movies.add(mapMovieDto(item));
+        movies.add(_mapMovieDto(item));
       } catch (e) {
         debugPrint("Movie processing failed: $item. Reason: $e");
         continue;
@@ -20,7 +20,7 @@ class MapperMovies {
     return DtoPage(tmbPage.num, movies);
   }
 
-  DtoMovie mapMovieDto(DtoTmdbMovie tmdbDto) {
+  DtoMovie _mapMovieDto(DtoTmdbMovie tmdbDto) {
     return DtoMovie(
       tmdbDto.id!,
       tmdbDto.posterPath,

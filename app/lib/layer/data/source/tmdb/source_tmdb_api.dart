@@ -39,6 +39,6 @@ class SourceTmdbAPI {
     }
 
     final body = await response.transform(utf8.decoder).join();
-    return _mapper.mapTmdbMovies(jsonDecode(body) as Map<String, dynamic>);
+    return _mapper.mapTmdbPage(jsonDecode(body) as Map<String, dynamic>);
   }
 }

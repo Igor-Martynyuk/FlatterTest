@@ -1,3 +1,5 @@
+import 'package:flutter/cupertino.dart';
+
 import 'dto_tmdb_movie.dart';
 import 'dto_tmdb_page.dart';
 
@@ -40,38 +42,49 @@ class MapperTmbApi {
         _keyVideo: bool video,
         _keyVoteAverage: double voteAverage,
         _keyVoteCount: int voteCount,
-      } => DtoTmdbMovie(
-        adult: adult,
-        backdropPath: backdropPath,
-        genreIds: genreIds.cast<int>(),
-        id: id,
-        originalLanguage: originalLanguage,
-        originalTitle: originalTitle,
-        overview: overview,
-        popularity: popularity,
-        posterPath: posterPath,
-        releaseDate: releaseDate,
-        title: title,
-        video: video,
-        voteAverage: voteAverage,
-        voteCount: voteCount,
-      ),
-      _ => throw _failedException
+      } =>
+        DtoTmdbMovie(
+          adult: adult,
+          backdropPath: backdropPath,
+          genreIds: genreIds.cast<int>(),
+          id: id,
+          originalLanguage: originalLanguage,
+          originalTitle: originalTitle,
+          overview: overview,
+          popularity: popularity,
+          posterPath: posterPath,
+          releaseDate: releaseDate,
+          title: title,
+          video: video,
+          voteAverage: voteAverage,
+          voteCount: voteCount,
+        ),
+      _ => throw _failedException,
     };
   }
 
-  DtoTmdbPage mapTmdbMovies(Map<String, dynamic> from) {
+  List<DtoTmdbMovie> _mapTmdbMovies(List from) {
+    final result = List<DtoTmdbMovie>.empty(growable: true);
+
+    for (Map<String, dynamic> item in from) {
+      try {
+        result.add(_mapTmdbMovie(item));
+      } catch (e) {
+        debugPrint("Movie response deserialization failed: $item. Reason: $e");
+        continue;
+      }
+    }
+
+    return result;
+  }
+
+  DtoTmdbPage mapTmdbPage(Map<String, dynamic> from) {
     return switch (from) {
-      {
-        _keyPage: int page,
-        _keyResults: List results
-      } => DtoTmdbPage(
+      {_keyPage: int page, _keyResults: List results} => DtoTmdbPage(
         num: page,
-        results: results
-            .map((e) => _mapTmdbMovie(e as Map<String, dynamic>))
-            .toList(),
+        results: _mapTmdbMovies(results),
       ),
-      _ => throw _failedException
+      _ => throw _failedException,
     };
   }
 }
