@@ -5,22 +5,7 @@ import '../../source/web/response_movie.dart';
 import '../../source/web/response_page.dart';
 
 class MapperMovies {
-  DtoPage mapPageDto(ResponsePage tmbPage) {
-    final movies = List<DtoMovie>.empty(growable: true);
-
-    for (var item in tmbPage.results) {
-      try {
-        movies.add(_mapMovieDto(item));
-      } catch (e) {
-        debugPrint("Movie processing failed: $item. Reason: $e");
-        continue;
-      }
-    }
-
-    return DtoPage(tmbPage.num, movies);
-  }
-
-  DtoMovie _mapMovieDto(ResponseMovie tmdbDto) {
+  DtoMovie mapMovieDto(ResponseMovie tmdbDto) {
     return DtoMovie(
       tmdbDto.id!,
       tmdbDto.posterPath,

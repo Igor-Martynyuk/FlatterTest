@@ -11,7 +11,7 @@ class RepositoryMovies implements PortFetchMovies {
 
   @override
   Future<List<DtoMovie>> loadTopRated(int page) async {
-    final remoteData = await _remoteSource.loadTopRated(page);
-    return _mapper.mapPageDto(remoteData).movies;
+    final response = await _remoteSource.loadTopRated(page);
+    return response.map((i) => _mapper.mapMovieDto(i)).toList();
   }
 }

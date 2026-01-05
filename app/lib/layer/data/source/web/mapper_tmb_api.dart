@@ -81,7 +81,7 @@ class MapperTmbApi {
     return switch (from) {
       {_keyPage: int page, _keyResults: List results} => ResponsePage(
         num: page,
-        results: _mapTmdbMovies(results),
+        movies: _mapTmdbMovies(results),
       ),
       _ => throw _failedException,
     };

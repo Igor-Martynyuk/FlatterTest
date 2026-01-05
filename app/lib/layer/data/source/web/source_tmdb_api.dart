@@ -1,5 +1,7 @@
 import 'dart:io';
 import 'dart:convert';
+import 'package:app/layer/data/source/web/response_movie.dart';
+
 import 'mapper_tmb_api.dart';
 import 'package:app/layer/data/source/web/response_page.dart';
 import 'package:app/core/request_failed_exception.dart';
@@ -14,7 +16,7 @@ class SourceTmdbAPI {
 
   SourceTmdbAPI(this._mapper, this._token);
 
-  Future<ResponsePage> loadTopRated(int page) async {
+  Future<List<ResponseMovie>> loadTopRated(int page) async {
     final url = Uri(
       scheme: "https",
       host: "api.themoviedb.org",
@@ -37,6 +39,6 @@ class SourceTmdbAPI {
     }
 
     final body = await response.transform(utf8.decoder).join();
-    return _mapper.mapTmdbPage(jsonDecode(body) as Map<String, dynamic>);
+    return _mapper.mapTmdbPage(jsonDecode(body) as Map<String, dynamic>).movies;
   }
 }
