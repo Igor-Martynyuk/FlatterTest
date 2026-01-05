@@ -1,12 +1,14 @@
 import 'dart:io';
 import 'dart:convert';
+import 'package:app/layer/data/repository/movies/dto_movie.dart';
+import 'package:app/layer/data/repository/movies/repository_movies.dart';
 import 'package:app/layer/data/source/web/response_movie.dart';
 
 import 'mapper_tmb_api.dart';
 import 'package:app/layer/data/source/web/response_page.dart';
 import 'package:app/core/request_failed_exception.dart';
 
-class SourceTmdbAPI {
+class ApiTmdb implements SourceReadOnlyMovies {
   static const msgTopRatedFailed = "top rated movies loading failed";
 
   final MapperTmbApi _mapper;
@@ -14,9 +16,10 @@ class SourceTmdbAPI {
   final HttpClient _client = HttpClient()
     ..connectionTimeout = const Duration(seconds: 15);
 
-  SourceTmdbAPI(this._mapper, this._token);
+  ApiTmdb(this._mapper, this._token);
 
-  Future<List<ResponseMovie>> loadTopRated(int page) async {
+  @override
+  Future<List<DtoMovie>> getMovies(int pageNum) async {
     final url = Uri(
       scheme: "https",
       host: "api.themoviedb.org",
@@ -25,7 +28,7 @@ class SourceTmdbAPI {
         "include_adult": "true",
         "include_video": "false",
         "language": "en-US",
-        "page": page.toString(),
+        "page": pageNum.toString(),
       },
     );
 
@@ -39,6 +42,6 @@ class SourceTmdbAPI {
     }
 
     final body = await response.transform(utf8.decoder).join();
-    return _mapper.mapTmdbPage(jsonDecode(body) as Map<String, dynamic>).movies;
+    return _mapper.bodyToMovies(body);
   }
 }

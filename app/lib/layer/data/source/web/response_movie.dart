@@ -2,7 +2,7 @@ class ResponseMovie {
   final bool? adult;
   final String? backdropPath;
   final List<int>? genreIds;
-  final int? id;
+  final int id;
   final String? originalLanguage;
   final String? originalTitle;
   final String? overview;

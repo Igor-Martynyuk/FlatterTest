@@ -1,8 +1,14 @@
+import 'dart:convert';
+
+import 'package:app/layer/data/repository/movies/dto_movie.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:app/layer/data/source/web/response_movie.dart';
 import 'package:app/layer/data/source/web/response_page.dart';
 
 class MapperTmbApi {
+  static const String _keyPage = "page";
+  static const String _keyResults = "results";
+
   static const String _keyAdult = "adult";
   static const String _keyBackdropPath = "backdrop_path";
   static const String _keyGenreIds = "genre_ids";
@@ -18,14 +24,53 @@ class MapperTmbApi {
   static const String _keyVoteAverage = "vote_average";
   static const String _keyVoteCount = "vote_count";
 
-  static const String _keyPage = "page";
-  static const String _keyResults = "results";
-
   static const String _failedErrorMsg = "Failed to deserialize response body";
   final Exception _failedException = FormatException(_failedErrorMsg);
 
-  ResponseMovie _mapTmdbMovie(Map<String, dynamic> from) {
-    return switch (from) {
+  List<DtoMovie> bodyToMovies(String bodyStr) {
+    final json = jsonDecode(bodyStr) as Map<String, dynamic>;
+    return _parsePageResponse(json).movies.map(_mapResponseToDto).toList();
+  }
+
+  DtoMovie _mapResponseToDto(ResponseMovie response) {
+    return DtoMovie(
+      response.id,
+      response.posterPath,
+      response.title,
+      response.popularity?.toDouble(),
+      response.overview,
+      response.releaseDate,
+      false,
+    );
+  }
+
+  ResponsePage _parsePageResponse(Map<String, dynamic> json) {
+    return switch (json) {
+      {_keyPage: int page, _keyResults: List results} => ResponsePage(
+        num: page,
+        movies: _parseMovieResponseList(results),
+      ),
+      _ => throw _failedException,
+    };
+  }
+
+  List<ResponseMovie> _parseMovieResponseList(List from) {
+    final result = List<ResponseMovie>.empty(growable: true);
+
+    for (Map<String, dynamic> item in from) {
+      try {
+        result.add(_parseMovieResponse(item));
+      } catch (e) {
+        debugPrint("Movie response deserialization failed: $item. Reason: $e");
+        continue;
+      }
+    }
+
+    return result;
+  }
+
+  ResponseMovie _parseMovieResponse(Map<String, dynamic> json) {
+    return switch (json) {
       {
         _keyAdult: bool adult,
         _keyBackdropPath: String? backdropPath,
@@ -41,47 +86,21 @@ class MapperTmbApi {
         _keyVideo: bool video,
         _keyVoteAverage: double voteAverage,
         _keyVoteCount: int voteCount,
-      } =>
-        ResponseMovie(
-          adult: adult,
-          backdropPath: backdropPath,
-          genreIds: genreIds.cast<int>(),
-          id: id,
-          originalLanguage: originalLanguage,
-          originalTitle: originalTitle,
-          overview: overview,
-          popularity: popularity,
-          posterPath: posterPath,
-          releaseDate: releaseDate,
-          title: title,
-          video: video,
-          voteAverage: voteAverage,
-          voteCount: voteCount,
-        ),
-      _ => throw _failedException,
-    };
-  }
-
-  List<ResponseMovie> _mapTmdbMovies(List from) {
-    final result = List<ResponseMovie>.empty(growable: true);
-
-    for (Map<String, dynamic> item in from) {
-      try {
-        result.add(_mapTmdbMovie(item));
-      } catch (e) {
-        debugPrint("Movie response deserialization failed: $item. Reason: $e");
-        continue;
-      }
-    }
-
-    return result;
-  }
-
-  ResponsePage mapTmdbPage(Map<String, dynamic> from) {
-    return switch (from) {
-      {_keyPage: int page, _keyResults: List results} => ResponsePage(
-        num: page,
-        movies: _mapTmdbMovies(results),
+      } => ResponseMovie(
+        adult: adult,
+        backdropPath: backdropPath,
+        genreIds: genreIds.cast<int>(),
+        id: id,
+        originalLanguage: originalLanguage,
+        originalTitle: originalTitle,
+        overview: overview,
+        popularity: popularity,
+        posterPath: posterPath,
+        releaseDate: releaseDate,
+        title: title,
+        video: video,
+        voteAverage: voteAverage,
+        voteCount: voteCount,
       ),
       _ => throw _failedException,
     };
