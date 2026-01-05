@@ -1,19 +1,22 @@
-class DtoMovie {
+
+class EntityMovie {
   final int id;
   final String? posterUrl;
   final String? title;
   final double? rate;
   final String? overview;
-  final String? releaseDate;
+  final int? releaseDate;
+  final int pageNum;
   final bool isFavorite;
 
-  DtoMovie(
+  EntityMovie(
     this.id,
     this.posterUrl,
     this.title,
     this.rate,
     this.overview,
     this.releaseDate,
-    this.isFavorite
+    this.pageNum,
+    this.isFavorite,
   );
 }

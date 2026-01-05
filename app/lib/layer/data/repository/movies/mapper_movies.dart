@@ -10,7 +10,7 @@ class MapperMovies {
       tmdbDto.popularity?.toDouble(),
       tmdbDto.overview,
       tmdbDto.releaseDate,
-      null,
+      false
     );
   }
 }

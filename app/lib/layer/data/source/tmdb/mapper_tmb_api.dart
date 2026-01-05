@@ -1,5 +1,5 @@
 import 'dto_tmdb_movie.dart';
-import 'dto_tmdb_movies.dart';
+import 'dto_tmdb_page.dart';
 
 class MapperTmbApi {
   static const String _keyAdult = "adult";
@@ -60,13 +60,13 @@ class MapperTmbApi {
     };
   }
 
-  DtoTmdbMovies mapTmdbMovies(Map<String, dynamic> from) {
+  DtoTmdbPage mapTmdbMovies(Map<String, dynamic> from) {
     return switch (from) {
       {
         _keyPage: int page,
         _keyResults: List results
-      } => DtoTmdbMovies(
-        page: page,
+      } => DtoTmdbPage(
+        num: page,
         results: results
             .map((e) => _mapTmdbMovie(e as Map<String, dynamic>))
             .toList(),
