@@ -1,14 +1,11 @@
 import 'dart:io';
 import 'dart:convert';
 import 'package:app/layer/data/repository/movies/dto_movie.dart';
-import 'package:app/layer/data/repository/movies/repository_movies.dart';
-import 'package:app/layer/data/source/web/response_movie.dart';
-
-import 'mapper_tmb_api.dart';
-import 'package:app/layer/data/source/web/response_page.dart';
+import 'package:app/layer/data/repository/movies/src_movies_read.dart';
 import 'package:app/core/request_failed_exception.dart';
+import 'mapper_tmb_api.dart';
 
-class ApiTmdb implements SourceReadOnlyMovies {
+class ApiTmdb implements SrcMoviesRead{
   static const msgTopRatedFailed = "top rated movies loading failed";
 
   final MapperTmbApi _mapper;
@@ -19,7 +16,7 @@ class ApiTmdb implements SourceReadOnlyMovies {
   ApiTmdb(this._mapper, this._token);
 
   @override
-  Future<List<DtoMovie>> getMovies(int pageNum) async {
+  Future<List<DtoMovie>> readMovies(int pageNum) async {
     final url = Uri(
       scheme: "https",
       host: "api.themoviedb.org",
