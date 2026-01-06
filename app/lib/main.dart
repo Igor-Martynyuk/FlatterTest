@@ -1,4 +1,3 @@
-import 'package:app/layer/data/repository/movies/src_movies.dart';
 import 'package:path/path.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
@@ -18,7 +17,16 @@ const _tokenFailedMsg = "token wasn't found";
 
 const _moviesDbName = "movies_db.db";
 const _moviesDbVersion = 1;
-const _scriptCreateTable = "";
+const _scriptCreateTable =
+    "CREATE TABLE movies ("
+    " id INTEGER PRIMARY KEY,"
+    " poster_url TEXT,"
+    " title TEXT,"
+    " rate REAL,"
+    " overview TEXT,"
+    " release_date INTEGER,"
+    " is_favorite INTEGER NOT NULL DEFAULT 0"
+    ");";
 
 Future<ApiTmdb> _initTmdbApi() async {
   await dotenv.load(fileName: _envFileName);
@@ -43,7 +51,7 @@ void main() async {
   WidgetsFlutterBinding.ensureInitialized();
 
   final tmdbApi = await _initTmdbApi();
-  // final database = await _initMoviesDB();
+  final database = await _initMoviesDB();
 
   final SrcMoviesRead moviesRemoteSource = tmdbApi;
   final moviesRepository = RepositoryMovies(moviesRemoteSource);
