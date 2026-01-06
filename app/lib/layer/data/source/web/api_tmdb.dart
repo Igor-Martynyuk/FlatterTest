@@ -1,8 +1,8 @@
 import 'dart:io';
 import 'dart:convert';
 import 'package:app/layer/data/repository/movies/dto_movie.dart';
-import 'package:app/layer/data/repository/movies/src_movies_read.dart';
 import 'package:app/core/request_failed_exception.dart';
+import '../../repository/movies/repository_movies.dart';
 import 'mapper_tmb_api.dart';
 
 class ApiTmdb implements SrcMoviesRead{
