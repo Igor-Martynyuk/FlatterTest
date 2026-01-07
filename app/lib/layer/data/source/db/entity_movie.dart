@@ -6,7 +6,6 @@ class EntityMovie {
   final double? rate;
   final String? overview;
   final int? releaseDate;
-  final int pageNum;
   final bool isFavorite;
 
   EntityMovie(
@@ -16,7 +15,6 @@ class EntityMovie {
     this.rate,
     this.overview,
     this.releaseDate,
-    this.pageNum,
-    this.isFavorite,
+    this.isFavorite
   );
 }

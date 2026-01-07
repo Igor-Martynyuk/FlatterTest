@@ -4,7 +4,7 @@ class DtoMovie {
   final String? title;
   final double? rate;
   final String? overview;
-  final String? releaseDate;
+  final DateTime? releaseDate;
   final bool isFavorite;
 
   DtoMovie(

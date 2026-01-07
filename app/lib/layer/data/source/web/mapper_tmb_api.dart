@@ -1,6 +1,7 @@
 import 'dart:convert';
 
 import 'package:app/layer/data/repository/movies/dto_movie.dart';
+import 'package:app/layer/data/repository/movies/dto_page.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:app/layer/data/source/web/response_movie.dart';
 import 'package:app/layer/data/source/web/response_page.dart';
@@ -27,9 +28,14 @@ class MapperTmbApi {
   static const String _failedErrorMsg = "Failed to deserialize response body";
   final Exception _failedException = FormatException(_failedErrorMsg);
 
-  List<DtoMovie> bodyToMovies(String bodyStr) {
+  DtoPage bodyToPage(String bodyStr) {
     final json = jsonDecode(bodyStr) as Map<String, dynamic>;
-    return _parsePageResponse(json).movies.map(_mapResponseToDto).toList();
+    final response = _parsePageResponse(json);
+
+    return DtoPage(
+      response.num,
+      response.movies.map(_mapResponseToDto).toList(),
+    );
   }
 
   DtoMovie _mapResponseToDto(ResponseMovie response) {
@@ -39,7 +45,7 @@ class MapperTmbApi {
       response.title,
       response.popularity?.toDouble(),
       response.overview,
-      response.releaseDate,
+      DateTime.tryParse(response.releaseDate!),
       false,
     );
   }
