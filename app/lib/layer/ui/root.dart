@@ -21,7 +21,7 @@ class _StateRoot extends State<Root> {
   Future<void> _load() async {
     var a = await widget.fetchMoviesCase.invoke();
     for (var item in a) {
-      debugPrint(item.title);
+      debugPrint(item.name);
     }
     if (mounted) setState(() => isLoading = false);
   }

@@ -1,21 +1,21 @@
 class DtoMovie {
   final int id;
-  final int pageNum;
-  final String? posterUrl;
-  final String? title;
+  final int page;
+  final String? imgUrl;
+  final String? name;
   final double? rate;
   final String? overview;
-  final DateTime? releaseDate;
+  final DateTime? date;
   final bool isFavorite;
 
   DtoMovie(
     this.id,
-    this.pageNum,
-    this.posterUrl,
-    this.title,
+    this.page,
+    this.imgUrl,
+    this.name,
     this.rate,
     this.overview,
-    this.releaseDate,
+    this.date,
     this.isFavorite,
   );
 }

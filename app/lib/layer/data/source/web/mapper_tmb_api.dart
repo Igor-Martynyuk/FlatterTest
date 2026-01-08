@@ -53,7 +53,7 @@ class MapperTmbApi {
         page,
         results
             .map((i) => i as Map<String, dynamic>)
-            .mapOrSkip(_toMovieResponse)
+            .mapOrSkipExt(_toMovieResponse)
             .toList(),
       ),
       _ => throw FormatException("$_msgParseFailed: $from"),
