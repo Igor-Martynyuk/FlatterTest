@@ -1,5 +1,6 @@
 class DtoMovie {
   final int id;
+  final int pageNum;
   final String? posterUrl;
   final String? title;
   final double? rate;
@@ -9,11 +10,12 @@ class DtoMovie {
 
   DtoMovie(
     this.id,
+    this.pageNum,
     this.posterUrl,
     this.title,
     this.rate,
     this.overview,
     this.releaseDate,
-    this.isFavorite
+    this.isFavorite,
   );
 }

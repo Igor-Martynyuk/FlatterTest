@@ -1,7 +1,7 @@
 import 'dart:io';
 import 'dart:convert';
-import 'package:app/core/request_failed_exception.dart';
-import 'package:app/layer/data/repository/movies/dto_page.dart';
+import 'package:app/core/exception/exception_request_failed.dart';
+import 'package:app/layer/data/repository/movies/dto_movie.dart';
 import '../../repository/movies/repository_movies.dart';
 import 'mapper_tmb_api.dart';
 
@@ -16,7 +16,7 @@ class ApiTmdb implements SrcMoviesRead{
   ApiTmdb(this._mapper, this._token);
 
   @override
-  Future<DtoPage> readMovies(int pageNum) async {
+  Future<List<DtoMovie>> readMovies(int pageNum) async {
     final url = Uri(
       scheme: "https",
       host: "api.themoviedb.org",
@@ -35,10 +35,10 @@ class ApiTmdb implements SrcMoviesRead{
     final response = await request.close();
 
     if (response.statusCode != HttpStatus.ok) {
-      throw RequestFailedException(msgTopRatedFailed, response.statusCode);
+      throw ExceptionRequestFailed(msgTopRatedFailed, response.statusCode);
     }
 
     final body = await response.transform(utf8.decoder).join();
-    return _mapper.bodyToPage(body);
+    return _mapper.toMoviesList(body);
   }
 }

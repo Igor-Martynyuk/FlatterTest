@@ -1,13 +1,12 @@
-import 'package:app/layer/data/repository/movies/dto_page.dart';
 import 'package:app/layer/domain/use/case/fetch/movies/port_fetch_movies.dart';
 import 'package:app/layer/data/repository/movies/dto_movie.dart';
 
 abstract class SrcMoviesRead {
-  Future<DtoPage> readMovies(int pageNum);
+  Future<List<DtoMovie>> readMovies(int pageNum);
 }
 
 abstract class SrcMoviesWrite implements SrcMoviesRead {
-  Future<void> writeMovies(DtoPage page);
+  Future<void> writeMovies(List<DtoMovie> page);
 }
 
 class RepositoryMovies implements PortFetchMovies {
@@ -17,6 +16,6 @@ class RepositoryMovies implements PortFetchMovies {
 
   @override
   Future<List<DtoMovie>> getMovies(int pageNum) async {
-    return (await _remoteSource.readMovies(pageNum)).movies;
+    return await _remoteSource.readMovies(pageNum);
   }
 }

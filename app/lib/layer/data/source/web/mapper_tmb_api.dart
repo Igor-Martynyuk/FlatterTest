@@ -1,10 +1,8 @@
 import 'dart:convert';
-
-import 'package:app/layer/data/repository/movies/dto_movie.dart';
-import 'package:app/layer/data/repository/movies/dto_page.dart';
-import 'package:flutter/cupertino.dart';
-import 'package:app/layer/data/source/web/response_movie.dart';
+import 'package:app/core/extensions/ext_iterable.dart';
 import 'package:app/layer/data/source/web/response_page.dart';
+import 'package:app/layer/data/source/web/response_movie.dart';
+import 'package:app/layer/data/repository/movies/dto_movie.dart';
 
 class MapperTmbApi {
   static const String _keyPage = "page";
@@ -25,58 +23,45 @@ class MapperTmbApi {
   static const String _keyVoteAverage = "vote_average";
   static const String _keyVoteCount = "vote_count";
 
-  static const String _failedErrorMsg = "Failed to deserialize response body";
-  final Exception _failedException = FormatException(_failedErrorMsg);
+  static const String _msgParseFailed = "Failed to parse a map";
 
-  DtoPage bodyToPage(String bodyStr) {
-    final json = jsonDecode(bodyStr) as Map<String, dynamic>;
-    final response = _parsePageResponse(json);
+  List<DtoMovie> toMoviesList(String from) {
+    final json = jsonDecode(from) as Map<String, dynamic>;
+    final pageResponse = _toPageResponse(json);
 
-    return DtoPage(
-      response.num,
-      response.movies.map(_mapResponseToDto).toList(),
-    );
+    return pageResponse.movies
+        .map((i) => _toMovieDto(i, pageResponse.num))
+        .toList();
   }
 
-  DtoMovie _mapResponseToDto(ResponseMovie response) {
+  DtoMovie _toMovieDto(ResponseMovie from, int pageNum) {
     return DtoMovie(
-      response.id,
-      response.posterPath,
-      response.title,
-      response.popularity?.toDouble(),
-      response.overview,
-      DateTime.tryParse(response.releaseDate!),
+      from.id,
+      pageNum,
+      from.posterPath,
+      from.title,
+      from.popularity?.toDouble(),
+      from.overview,
+      DateTime.tryParse(from.releaseDate!),
       false,
     );
   }
 
-  ResponsePage _parsePageResponse(Map<String, dynamic> json) {
-    return switch (json) {
+  ResponsePage _toPageResponse(Map<String, dynamic> from) {
+    return switch (from) {
       {_keyPage: int page, _keyResults: List results} => ResponsePage(
-        num: page,
-        movies: _parseMovieResponseList(results),
+        page,
+        results
+            .map((i) => i as Map<String, dynamic>)
+            .mapOrSkip(_toMovieResponse)
+            .toList(),
       ),
-      _ => throw _failedException,
+      _ => throw FormatException("$_msgParseFailed: $from"),
     };
   }
 
-  List<ResponseMovie> _parseMovieResponseList(List from) {
-    final result = List<ResponseMovie>.empty(growable: true);
-
-    for (Map<String, dynamic> item in from) {
-      try {
-        result.add(_parseMovieResponse(item));
-      } catch (e) {
-        debugPrint("Movie response deserialization failed: $item. Reason: $e");
-        continue;
-      }
-    }
-
-    return result;
-  }
-
-  ResponseMovie _parseMovieResponse(Map<String, dynamic> json) {
-    return switch (json) {
+  ResponseMovie _toMovieResponse(Map<String, dynamic> from) {
+    return switch (from) {
       {
         _keyAdult: bool adult,
         _keyBackdropPath: String? backdropPath,
@@ -108,7 +93,7 @@ class MapperTmbApi {
         voteAverage: voteAverage,
         voteCount: voteCount,
       ),
-      _ => throw _failedException,
+      _ => throw FormatException("$_msgParseFailed: $from"),
     };
   }
 }
