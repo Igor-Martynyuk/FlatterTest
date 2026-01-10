@@ -38,7 +38,7 @@ class DbMapper {
         dateMillis.toDateOrNullExt(EpochUnit.millis),
         isFavorite.toBoolExt(),
       ),
-      _ => throw FormatException(),
+      _ => throw FormatException("Failed to map movie DTO from DB: $from")
     };
   }
 
