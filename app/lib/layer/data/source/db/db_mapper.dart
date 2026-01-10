@@ -14,7 +14,7 @@ class DbMapper {
     DbConst.keyRate: from.rate,
     DbConst.keyOverview: from.overview,
     DbConst.keyDate: from.date?.millisecondsSinceEpoch,
-    DbConst.keyIsFavorite: from.isFavorite.toIntExt(),
+    DbConst.keyFavorite: from.isFavorite.toIntExt(),
   };
 
   DtoMovie toDto(Map<String, dynamic> from) {
@@ -27,7 +27,7 @@ class DbMapper {
         DbConst.keyRate: num? rate,
         DbConst.keyOverview: String? overview,
         DbConst.keyDate: int? dateMillis,
-        DbConst.keyIsFavorite: int isFavorite,
+        DbConst.keyFavorite: int isFavorite,
       } => DtoMovie(
         id,
         page,

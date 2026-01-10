@@ -1,3 +1,6 @@
+library;
+
+import 'package:app/layer/data/source/db/db_const.dart';
 import 'package:path/path.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
@@ -9,48 +12,15 @@ import 'layer/data/source/web/api_mapper.dart';
 import 'layer/data/source/web/api_decorator.dart';
 import 'layer/domain/use/case/fetch/movies/port_fetch_movies.dart';
 
+part 'create_api.dart';
+part 'create_db.dart';
+
 const _appName = "Flutter Playground";
-const _envFileName = ".env";
-const _tokenType = "Bearer";
-const _tokenEnv = 'TMB_ACCESS_TOKEN';
-const _tokenFailedMsg = "token wasn't found";
-
-const _moviesDbName = "movies_db.db";
-const _moviesDbVersion = 1;
-const _scriptCreateTable =
-    "CREATE TABLE movies ("
-    " id INTEGER PRIMARY KEY,"
-    " poster_url TEXT,"
-    " title TEXT,"
-    " rate REAL,"
-    " overview TEXT,"
-    " release_date INTEGER,"
-    " is_favorite INTEGER NOT NULL DEFAULT 0"
-    ");";
-
-Future<ApiDecorator> _initTmdbApi() async {
-  await dotenv.load(fileName: _envFileName);
-
-  final rawToken = dotenv.env[_tokenEnv];
-  if (rawToken == null || rawToken.isEmpty) throw StateError(_tokenFailedMsg);
-
-  return ApiDecorator(ApiMapper(), "$_tokenType $rawToken");
-}
-
-Future<Database> _initMoviesDB() async {
-  return await openDatabase(
-    join(await getDatabasesPath(), _moviesDbName),
-    onCreate: (db, version) {
-      return db.execute(_scriptCreateTable);
-    },
-    version: _moviesDbVersion,
-  );
-}
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
 
-  final tmdbApi = await _initTmdbApi();
+  final tmdbApi = await createApi();
   final database = await _initMoviesDB();
 
   final SrcMoviesRemote moviesRemoteSource = tmdbApi;
