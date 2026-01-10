@@ -9,10 +9,10 @@ abstract class SrcMoviesWrite implements SrcMoviesRead {
   Future<void> writeMovies(List<DtoMovie> page);
 }
 
-class RepositoryMovies implements PortFetchMovies {
+class RepoMovies implements PortFetchMovies {
   final SrcMoviesRead _remoteSource;
 
-  RepositoryMovies(this._remoteSource);
+  RepoMovies(this._remoteSource);
 
   @override
   Future<List<DtoMovie>> getMovies(int pageNum) async {

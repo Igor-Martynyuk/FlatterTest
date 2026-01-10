@@ -2,11 +2,11 @@ import 'package:path/path.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:app/l10n/app_localizations.dart';
-import 'package:app/layer/data/repository/movies/repository_movies.dart';
+import 'package:app/layer/data/repository/movies/repo_movies.dart';
 import 'package:app/layer/ui/root.dart';
 import 'package:sqflite/sqflite.dart';
-import 'layer/data/source/web/mapper_tmb_api.dart';
-import 'layer/data/source/web/api_tmdb.dart';
+import 'layer/data/source/web/api_mapper.dart';
+import 'layer/data/source/web/api.dart';
 import 'layer/domain/use/case/fetch/movies/port_fetch_movies.dart';
 
 const _appName = "Flutter Playground";
@@ -28,13 +28,13 @@ const _scriptCreateTable =
     " is_favorite INTEGER NOT NULL DEFAULT 0"
     ");";
 
-Future<ApiTmdb> _initTmdbApi() async {
+Future<Api> _initTmdbApi() async {
   await dotenv.load(fileName: _envFileName);
 
   final rawToken = dotenv.env[_tokenEnv];
   if (rawToken == null || rawToken.isEmpty) throw StateError(_tokenFailedMsg);
 
-  return ApiTmdb(MapperTmbApi(), "$_tokenType $rawToken");
+  return Api(ApiMapper(), "$_tokenType $rawToken");
 }
 
 Future<Database> _initMoviesDB() async {
@@ -54,7 +54,7 @@ void main() async {
   final database = await _initMoviesDB();
 
   final SrcMoviesRead moviesRemoteSource = tmdbApi;
-  final moviesRepository = RepositoryMovies(moviesRemoteSource);
+  final moviesRepository = RepoMovies(moviesRemoteSource);
 
   final PortFetchMovies fetchMoviesPort = moviesRepository;
 

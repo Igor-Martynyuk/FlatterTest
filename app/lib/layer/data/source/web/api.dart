@@ -2,18 +2,18 @@ import 'dart:io';
 import 'dart:convert';
 import 'package:app/core/exception/exception_request_failed.dart';
 import 'package:app/layer/data/repository/movies/dto_movie.dart';
-import '../../repository/movies/repository_movies.dart';
-import 'mapper_tmb_api.dart';
+import '../../repository/movies/repo_movies.dart';
+import 'api_mapper.dart';
 
-class ApiTmdb implements SrcMoviesRead{
+class Api implements SrcMoviesRead{
   static const msgTopRatedFailed = "top rated movies loading failed";
 
-  final MapperTmbApi _mapper;
+  final ApiMapper _mapper;
   final String _token;
   final HttpClient _client = HttpClient()
     ..connectionTimeout = const Duration(seconds: 15);
 
-  ApiTmdb(this._mapper, this._token);
+  Api(this._mapper, this._token);
 
   @override
   Future<List<DtoMovie>> readMovies(int pageNum) async {

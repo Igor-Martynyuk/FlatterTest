@@ -1,4 +1,4 @@
-class ResponseMovie {
+class ApiResponseMovie {
   final bool? adult;
   final String? backdropPath;
   final List<int>? genreIds;
@@ -14,7 +14,7 @@ class ResponseMovie {
   final num? voteAverage;
   final int? voteCount;
 
-  ResponseMovie({
+  ApiResponseMovie({
     required this.adult,
     required this.backdropPath,
     required this.genreIds,

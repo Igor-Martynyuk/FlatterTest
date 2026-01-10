@@ -1,10 +1,10 @@
 import 'dart:convert';
 import 'package:app/core/extensions/ext_iterable.dart';
-import 'package:app/layer/data/source/web/response_page.dart';
-import 'package:app/layer/data/source/web/response_movie.dart';
+import 'package:app/layer/data/source/web/api_response_page.dart';
+import 'package:app/layer/data/source/web/api_response_movie.dart';
 import 'package:app/layer/data/repository/movies/dto_movie.dart';
 
-class MapperTmbApi {
+class ApiMapper {
   static const String _keyPage = "page";
   static const String _keyResults = "results";
 
@@ -34,7 +34,7 @@ class MapperTmbApi {
         .toList();
   }
 
-  DtoMovie _toMovieDto(ResponseMovie from, int pageNum) {
+  DtoMovie _toMovieDto(ApiResponseMovie from, int pageNum) {
     return DtoMovie(
       from.id,
       pageNum,
@@ -47,9 +47,9 @@ class MapperTmbApi {
     );
   }
 
-  ResponsePage _toPageResponse(Map<String, dynamic> from) {
+  ApiResponsePage _toPageResponse(Map<String, dynamic> from) {
     return switch (from) {
-      {_keyPage: int page, _keyResults: List results} => ResponsePage(
+      {_keyPage: int page, _keyResults: List results} => ApiResponsePage(
         page,
         results
             .map((i) => i as Map<String, dynamic>)
@@ -60,7 +60,7 @@ class MapperTmbApi {
     };
   }
 
-  ResponseMovie _toMovieResponse(Map<String, dynamic> from) {
+  ApiResponseMovie _toMovieResponse(Map<String, dynamic> from) {
     return switch (from) {
       {
         _keyAdult: bool adult,
@@ -77,7 +77,7 @@ class MapperTmbApi {
         _keyVideo: bool video,
         _keyVoteAverage: double voteAverage,
         _keyVoteCount: int voteCount,
-      } => ResponseMovie(
+      } => ApiResponseMovie(
         adult: adult,
         backdropPath: backdropPath,
         genreIds: genreIds.cast<int>(),
