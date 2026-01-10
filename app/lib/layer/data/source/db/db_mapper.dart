@@ -1,33 +1,29 @@
-import 'package:app/core/extensions/ext_bool.dart';
-import 'package:app/core/extensions/ext_int.dart';
-import 'package:app/core/extensions/ext_int_nullable.dart';
-import 'package:app/layer/data/repository/movies/dto_movie.dart';
-import 'package:app/layer/data/source/db/db_const.dart';
+part of 'lib.dart';
 
 class DbMapper {
 
   Map<String, dynamic> toMap(DtoMovie from) => {
-    DbConst.keyId: from.id,
-    DbConst.keyPage: from.page,
-    DbConst.keyImgUrl: from.imgUrl,
-    DbConst.keyName: from.name,
-    DbConst.keyRate: from.rate,
-    DbConst.keyOverview: from.overview,
-    DbConst.keyDate: from.date?.millisecondsSinceEpoch,
-    DbConst.keyFavorite: from.isFavorite.toIntExt(),
+    DbConst._keyId: from.id,
+    DbConst._keyPage: from.page,
+    DbConst._keyImgUrl: from.imgUrl,
+    DbConst._keyName: from.name,
+    DbConst._keyRate: from.rate,
+    DbConst._keyOverview: from.overview,
+    DbConst._keyDate: from.date?.millisecondsSinceEpoch,
+    DbConst._keyFavorite: from.isFavorite.toIntExt(),
   };
 
   DtoMovie toDto(Map<String, dynamic> from) {
     return switch (from) {
       {
-        DbConst.keyId: int id,
-        DbConst.keyPage: int page,
-        DbConst.keyImgUrl: String? imgUrl,
-        DbConst.keyName: String? name,
-        DbConst.keyRate: num? rate,
-        DbConst.keyOverview: String? overview,
-        DbConst.keyDate: int? dateMillis,
-        DbConst.keyFavorite: int isFavorite,
+        DbConst._keyId: int id,
+        DbConst._keyPage: int page,
+        DbConst._keyImgUrl: String? imgUrl,
+        DbConst._keyName: String? name,
+        DbConst._keyRate: num? rate,
+        DbConst._keyOverview: String? overview,
+        DbConst._keyDate: int? dateMillis,
+        DbConst._keyFavorite: int isFavorite,
       } => DtoMovie(
         id,
         page,

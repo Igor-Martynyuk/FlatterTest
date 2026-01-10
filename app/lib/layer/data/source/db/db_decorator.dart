@@ -1,5 +1,4 @@
-import 'package:app/layer/data/source/db/db_const.dart';
-import 'package:sqflite/sqflite.dart';
+part of 'lib.dart';
 
 class DbDecorator {
   final Database db;
