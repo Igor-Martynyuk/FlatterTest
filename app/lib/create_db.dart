@@ -1,11 +1,13 @@
 part of 'main.dart';
 
-Future<Database> _initMoviesDB() async {
-  return await openDatabase(
-    join(await getDatabasesPath(), DbConst.dbName),
-    onCreate: (db, version) {
-      return db.execute(DbConst.initScript);
-    },
-    version: DbConst.dbVersion,
+Future<DbDecorator> _initMoviesDB() async {
+  return DbDecorator(
+    await openDatabase(
+      join(await getDatabasesPath(), DbConst.dbName),
+      onCreate: (db, version) {
+        return db.execute(DbConst.initScript);
+      },
+      version: DbConst.dbVersion,
+    ),
   );
 }

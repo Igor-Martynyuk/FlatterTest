@@ -19,11 +19,12 @@ const _appName = "Flutter Playground";
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
 
-  final tmdbApi = await createApi();
-  final database = await _initMoviesDB();
+  final dbDecorator = await _initMoviesDB();
+  final apiDecorator = await createApi();
 
-  final SrcMoviesRemote moviesRemoteSource = tmdbApi;
-  final moviesRepository = RepoMovies(moviesRemoteSource);
+  final SrcMoviesLocal localMoviesSource = dbDecorator;
+  final SrcMoviesRemote remoteMoviesSource = apiDecorator;
+  final moviesRepository = RepoMovies(localMoviesSource, remoteMoviesSource);
 
   final PortFetchMovies fetchMoviesPort = moviesRepository;
 

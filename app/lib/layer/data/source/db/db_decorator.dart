@@ -1,8 +1,25 @@
 part of 'lib.dart';
 
-class DbDecorator {
+class DbDecorator extends SrcMoviesLocal {
   final Database db;
-  final DbConst constants;
 
-  DbDecorator(this.db, this.constants);
+  DbDecorator(this.db);
+
+  @override
+  Future<int> readLastPageNum() {
+    // TODO: implement readLastPageNum
+    throw UnimplementedError();
+  }
+
+  @override
+  Future<List<DtoMovie>> readMovies(int start, int size) {
+    // TODO: implement readMovies
+    throw UnimplementedError();
+  }
+
+  @override
+  Future<void> writeMovies(List<DtoMovie> page) {
+    // TODO: implement writeMovies
+    throw UnimplementedError();
+  }
 }

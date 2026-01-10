@@ -1,5 +1,6 @@
 library;
 
+import 'package:app/layer/data/repository/movies/repo_movies.dart';
 import 'package:sqflite/sqflite.dart';
 
 import '../../../../core/extensions/ext_bool.dart';
