@@ -5,15 +5,16 @@ import 'package:app/layer/data/repository/movies/dto_movie.dart';
 import '../../repository/movies/repo_movies.dart';
 import 'api_mapper.dart';
 
-class Api implements SrcMoviesRead{
+class ApiDecorator implements SrcMoviesRead {
+  static const timeoutSec = 15;
   static const msgTopRatedFailed = "top rated movies loading failed";
 
   final ApiMapper _mapper;
   final String _token;
   final HttpClient _client = HttpClient()
-    ..connectionTimeout = const Duration(seconds: 15);
+    ..connectionTimeout = const Duration(seconds: timeoutSec);
 
-  Api(this._mapper, this._token);
+  ApiDecorator(this._mapper, this._token);
 
   @override
   Future<List<DtoMovie>> readMovies(int pageNum) async {

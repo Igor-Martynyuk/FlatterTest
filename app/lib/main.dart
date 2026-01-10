@@ -6,7 +6,7 @@ import 'package:app/layer/data/repository/movies/repo_movies.dart';
 import 'package:app/layer/ui/root.dart';
 import 'package:sqflite/sqflite.dart';
 import 'layer/data/source/web/api_mapper.dart';
-import 'layer/data/source/web/api.dart';
+import 'layer/data/source/web/api_decorator.dart';
 import 'layer/domain/use/case/fetch/movies/port_fetch_movies.dart';
 
 const _appName = "Flutter Playground";
@@ -28,13 +28,13 @@ const _scriptCreateTable =
     " is_favorite INTEGER NOT NULL DEFAULT 0"
     ");";
 
-Future<Api> _initTmdbApi() async {
+Future<ApiDecorator> _initTmdbApi() async {
   await dotenv.load(fileName: _envFileName);
 
   final rawToken = dotenv.env[_tokenEnv];
   if (rawToken == null || rawToken.isEmpty) throw StateError(_tokenFailedMsg);
 
-  return Api(ApiMapper(), "$_tokenType $rawToken");
+  return ApiDecorator(ApiMapper(), "$_tokenType $rawToken");
 }
 
 Future<Database> _initMoviesDB() async {
