@@ -1,42 +1,53 @@
 import 'dart:io';
 import 'dart:convert';
+import 'dart:ui';
 import 'package:app/core/exception/exception_request_failed.dart';
 import 'package:app/layer/data/repository/movies/dto_movie.dart';
 import '../../repository/movies/repo_movies.dart';
 import 'api_mapper.dart';
 
 class ApiDecorator implements SrcMoviesRead {
-  static const timeoutSec = 15;
-  static const msgTopRatedFailed = "top rated movies loading failed";
+  static const _timeoutSec = 15;
+  static const _urlScheme = "https";
+  static const _urlHost = "api.themoviedb.org";
+  static const _urlPathCommon = "3/discover/";
+
+  static const _urlPathMovies = "movie";
+  static const _paramIncludeAdult = "include_adult";
+  static const _paramIncludeVideo = "include_video";
+  static const _paramLang = "language";
+  static const _paramPage = "page";
 
   final ApiMapper _mapper;
   final String _token;
   final HttpClient _client = HttpClient()
-    ..connectionTimeout = const Duration(seconds: timeoutSec);
+    ..connectionTimeout = const Duration(seconds: _timeoutSec);
 
   ApiDecorator(this._mapper, this._token);
 
   @override
-  Future<List<DtoMovie>> readMovies(int pageNum) async {
-    final url = Uri(
-      scheme: "https",
-      host: "api.themoviedb.org",
-      path: "3/discover/movie",
-      queryParameters: {
-        "include_adult": "true",
-        "include_video": "false",
-        "language": "en-US",
-        "page": pageNum.toString(),
-      },
+  Future<List<DtoMovie>> readMovies(String lang, int pageNum) async {
+    final request = await _client.getUrl(
+      Uri(
+        scheme: _urlScheme,
+        host: _urlHost,
+        path: _urlPathCommon + _urlPathMovies,
+        queryParameters: {
+          _paramIncludeAdult: true.toString(),
+          _paramIncludeVideo: false.toString(),
+          _paramLang: lang,
+          _paramPage: pageNum.toString(),
+        },
+      ),
     );
-
-    final request = await _client.getUrl(url);
     request.headers.add(HttpHeaders.authorizationHeader, _token);
 
     final response = await request.close();
-
     if (response.statusCode != HttpStatus.ok) {
-      throw ExceptionRequestFailed(msgTopRatedFailed, response.statusCode);
+      throw ExceptionRequestFailed(
+        "Failed to load top rated movies",
+        response.statusCode,
+      );
     }
 
     final body = await response.transform(utf8.decoder).join();
