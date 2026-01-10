@@ -53,7 +53,7 @@ void main() async {
   final tmdbApi = await _initTmdbApi();
   final database = await _initMoviesDB();
 
-  final SrcMoviesRead moviesRemoteSource = tmdbApi;
+  final SrcMoviesRemote moviesRemoteSource = tmdbApi;
   final moviesRepository = RepoMovies(moviesRemoteSource);
 
   final PortFetchMovies fetchMoviesPort = moviesRepository;

@@ -6,7 +6,7 @@ import 'package:app/layer/data/repository/movies/dto_movie.dart';
 import '../../repository/movies/repo_movies.dart';
 import 'api_mapper.dart';
 
-class ApiDecorator implements SrcMoviesRead {
+class ApiDecorator implements SrcMoviesRemote {
   static const _timeoutSec = 15;
   static const _urlScheme = "https";
   static const _urlHost = "api.themoviedb.org";
@@ -18,6 +18,8 @@ class ApiDecorator implements SrcMoviesRead {
   static const _paramLang = "language";
   static const _paramPage = "page";
 
+  static const _localEn = "en-US";
+
   final ApiMapper _mapper;
   final String _token;
   final HttpClient _client = HttpClient()
@@ -26,7 +28,7 @@ class ApiDecorator implements SrcMoviesRead {
   ApiDecorator(this._mapper, this._token);
 
   @override
-  Future<List<DtoMovie>> readMovies(String lang, int pageNum) async {
+  Future<List<DtoMovie>> readMovies(int pageNum) async {
     final request = await _client.getUrl(
       Uri(
         scheme: _urlScheme,
@@ -35,7 +37,7 @@ class ApiDecorator implements SrcMoviesRead {
         queryParameters: {
           _paramIncludeAdult: true.toString(),
           _paramIncludeVideo: false.toString(),
-          _paramLang: lang,
+          _paramLang: _localEn,
           _paramPage: pageNum.toString(),
         },
       ),
