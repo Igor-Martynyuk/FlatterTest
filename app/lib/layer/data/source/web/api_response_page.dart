@@ -1,4 +1,4 @@
-import 'package:app/layer/data/source/web/api_response_movie.dart';
+part of 'lib.dart';
 
 class ApiResponsePage {
   final int num;

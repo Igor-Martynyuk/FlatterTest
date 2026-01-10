@@ -1,8 +1,4 @@
-import 'dart:convert';
-import 'package:app/core/extensions/ext_iterable.dart';
-import 'package:app/layer/data/source/web/api_response_page.dart';
-import 'package:app/layer/data/source/web/api_response_movie.dart';
-import 'package:app/layer/data/repository/movies/dto_movie.dart';
+part of 'lib.dart';
 
 class ApiMapper {
   static const String _keyPage = "page";

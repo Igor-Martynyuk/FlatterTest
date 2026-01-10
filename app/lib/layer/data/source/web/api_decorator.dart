@@ -1,10 +1,4 @@
-import 'dart:io';
-import 'dart:convert';
-import 'dart:ui';
-import 'package:app/core/exception/exception_request_failed.dart';
-import 'package:app/layer/data/repository/movies/dto_movie.dart';
-import '../../repository/movies/repo_movies.dart';
-import 'api_mapper.dart';
+part of 'lib.dart';
 
 class ApiDecorator implements SrcMoviesRemote {
   static const _timeoutSec = 15;

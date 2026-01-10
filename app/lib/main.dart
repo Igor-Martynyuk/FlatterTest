@@ -8,8 +8,7 @@ import 'package:app/l10n/app_localizations.dart';
 import 'package:app/layer/data/repository/movies/repo_movies.dart';
 import 'package:app/layer/ui/root.dart';
 import 'package:sqflite/sqflite.dart';
-import 'layer/data/source/web/api_mapper.dart';
-import 'layer/data/source/web/api_decorator.dart';
+import 'layer/data/source/web/lib.dart';
 import 'layer/domain/use/case/fetch/movies/port_fetch_movies.dart';
 
 part 'create_api.dart';

@@ -1,3 +1,5 @@
+part of 'lib.dart';
+
 class ApiResponseMovie {
   final bool? adult;
   final String? backdropPath;
