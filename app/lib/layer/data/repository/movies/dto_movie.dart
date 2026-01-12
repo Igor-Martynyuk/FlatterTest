@@ -1,5 +1,5 @@
 class DtoMovie {
-  final int id;
+  final String id;
   final int page;
   final String? imgUrl;
   final String? name;

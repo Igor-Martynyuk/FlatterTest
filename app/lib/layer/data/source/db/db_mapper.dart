@@ -17,7 +17,7 @@ class DbMapper {
   DtoMovie toDto(Map<String, dynamic> from) {
     return switch (from) {
       {
-        DbConst._keyId: int id,
+        DbConst._keyId: String id,
         DbConst._keyPage: int page,
         DbConst._keyImgUrl: String? imgUrl,
         DbConst._keyName: String? name,

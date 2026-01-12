@@ -62,7 +62,7 @@ class ApiMapper {
         _keyAdult: bool adult,
         _keyBackdropPath: String? backdropPath,
         _keyGenreIds: List genreIds,
-        _keyId: int id,
+        _keyId: String id,
         _keyOriginalLanguage: String originalLanguage,
         _keyOriginalTitle: String originalTitle,
         _keyOverview: String overview,
