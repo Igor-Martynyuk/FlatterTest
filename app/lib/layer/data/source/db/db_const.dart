@@ -18,7 +18,7 @@ class DbConst {
 
   static const scriptInit =
       "CREATE TABLE ${DbConst.tableMovies} ("
-      " $_keyId INTEGER PRIMARY KEY,"
+      " $_keyId TEXT NOT NULL PRIMARY KEY,"
       " $_keyImgUrl TEXT,"
       " $_keyName TEXT,"
       " $_keyRate REAL,"
