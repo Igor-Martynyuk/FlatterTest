@@ -2,7 +2,7 @@ part of 'lib.dart';
 
 class DbMapper {
 
-  Map<String, dynamic> toMap(DtoMovie from) => {
+  Map<String, dynamic> toMap(int seq, DtoMovie from) => {
     DbConst._keyId: from.id,
     DbConst._keyPage: from.page,
     DbConst._keyImgUrl: from.imgUrl,
@@ -11,6 +11,7 @@ class DbMapper {
     DbConst._keyOverview: from.overview,
     DbConst._keyDate: from.date?.millisecondsSinceEpoch,
     DbConst._keyFavorite: from.isFavorite.toIntExt(),
+    DbConst._keySeq: seq
   };
 
   DtoMovie toDto(Map<String, dynamic> from) {

@@ -6,19 +6,31 @@ abstract class SrcMoviesRemote {
 }
 
 abstract class SrcMoviesLocal {
-  Future<int> readLastPageNum();
+  Future<int> readMaxPageNum();
+
   Future<List<DtoMovie>> readMovies(int start, int size);
+
   Future<void> writeMovies(List<DtoMovie> page);
 }
 
 class RepoMovies implements PortFetchMovies {
-  final SrcMoviesLocal _moviesLocal;
+  final SrcMoviesLocal _localSource;
   final SrcMoviesRemote _remoteSource;
 
-  RepoMovies(this._moviesLocal, this._remoteSource);
+  RepoMovies(this._localSource, this._remoteSource);
 
   @override
-  Future<List<DtoMovie>> getMovies(int pageNum) async {
-    return await _remoteSource.readMovies(pageNum);
+  Future<List<DtoMovie>> getMovies(int start, int size) async {
+    final localMovies = await _localSource.readMovies(start, size);
+
+    if (localMovies.length < size) {
+      final lastPage = await _localSource.readMaxPageNum();
+      final remoteMovies = await _remoteSource.readMovies(lastPage + 1);
+
+      await _localSource.writeMovies(remoteMovies);
+      return await _localSource.readMovies(start, size);
+    } else {
+      return localMovies;
+    }
   }
 }

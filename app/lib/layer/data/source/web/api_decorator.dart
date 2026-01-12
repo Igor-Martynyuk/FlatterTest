@@ -47,6 +47,8 @@ class ApiDecorator implements SrcMoviesRemote {
     }
 
     final body = await response.transform(utf8.decoder).join();
+
+    //TODO What if all the page items are unparsable?
     return _mapper.toMoviesList(body);
   }
 }

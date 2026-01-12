@@ -20,7 +20,7 @@ const _appName = "Flutter Playground";
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
 
-  final dbDecorator = await _initMoviesDB();
+  final dbDecorator = await createDb();
   final apiDecorator = await createApi();
 
   final SrcMoviesLocal localMoviesSource = dbDecorator;
