@@ -21,7 +21,7 @@ class ApiMapper {
 
   static const String _msgParseFailed = "Failed to parse a map";
 
-  List<DtoMovie> toMoviesList(String from) {
+  List<RepoDtoMovie> toMoviesList(String from) {
     final json = jsonDecode(from) as Map<String, dynamic>;
     final pageResponse = _toPageResponse(json);
 
@@ -30,16 +30,16 @@ class ApiMapper {
         .toList();
   }
 
-  DtoMovie _toMovieDto(ApiResponseMovie from, int pageNum) {
-    return DtoMovie(
+  RepoDtoMovie _toMovieDto(ApiResponseMovie from, int pageNum) {
+    return RepoDtoMovie(
       from.id,
-      pageNum,
       from.posterPath,
       from.title,
       from.popularity?.toDouble(),
       from.overview,
       DateTime.tryParse(from.releaseDate!),
       false,
+      pageNum
     );
   }
 

@@ -1,17 +1,17 @@
-import 'package:app/layer/data/repository/movies/dto_movie.dart';
+import 'package:app/layer/data/repository/movies/repo_dto_movie.dart';
 
 import '../../../domain/use/case/case_fetch_movies.dart';
 
 abstract class SrcMoviesRemote {
-  Future<List<DtoMovie>> readMovies(int pageNum);
+  Future<List<RepoDtoMovie>> readMovies(int pageNum);
 }
 
 abstract class SrcMoviesLocal {
   Future<int> readMaxPageNum();
 
-  Future<List<DtoMovie>> readMovies(int start, int size);
+  Future<List<RepoDtoMovie>> readMovies(int start, int size);
 
-  Future<void> writeMovies(List<DtoMovie> page);
+  Future<void> writeMovies(List<RepoDtoMovie> page);
 }
 
 class RepoMovies implements PortFetchMovies {
@@ -21,7 +21,7 @@ class RepoMovies implements PortFetchMovies {
   RepoMovies(this._localSource, this._remoteSource);
 
   @override
-  Future<List<DtoMovie>> getMovies(int start, int size) async {
+  Future<List<RepoDtoMovie>> getMovies(int start, int size) async {
     final localMovies = await _localSource.readMovies(start, size);
 
     if (localMovies.length < size) {
@@ -32,7 +32,7 @@ class RepoMovies implements PortFetchMovies {
   }
 
   @override
-  Future<List<DtoMovie>> fetchMovies(int start, int size) async {
+  Future<List<RepoDtoMovie>> fetchMovies(int start, int size) async {
     final lastPage = await _localSource.readMaxPageNum();
     final remoteMovies = await _remoteSource.readMovies(lastPage + 1);
 
