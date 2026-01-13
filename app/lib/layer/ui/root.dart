@@ -1,7 +1,7 @@
 import 'package:app/layer/ui/splash/screen_splash.dart';
 import 'package:flutter/material.dart';
 
-import '../domain/use/case/fetch/movies/case_fetch_movies.dart';
+import '../domain/use/case/case_fetch_movies.dart';
 import 'home/screen_home.dart';
 
 class Root extends StatefulWidget {

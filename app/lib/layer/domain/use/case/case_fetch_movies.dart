@@ -10,5 +10,5 @@ class CaseFetchMovies {
 
   CaseFetchMovies(this.source);
 
-  Future<List<DtoMovie>> invoke() => source.fetchMovies(0, 20);
+  Future<List<DtoMovie>> invoke() => source.getMovies(0, 20);
 }
