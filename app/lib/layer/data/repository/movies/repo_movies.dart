@@ -2,7 +2,7 @@ import 'package:app/layer/data/repository/movies/repo_movies_dto.dart';
 import 'package:app/layer/data/repository/movies/repo_movies_mapper.dart';
 import 'package:app/layer/domain/entity/movie.dart';
 
-import '../../../domain/use/case/case_fetch_movies.dart';
+import '../../../domain/use/case_fetch_movies.dart';
 
 abstract class SrcMoviesRemote {
   Future<List<RepoMoviesDto>> readMovies(int pageNum);
