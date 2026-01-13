@@ -1,5 +1,6 @@
-import 'package:app/layer/domain/use/case/fetch/movies/port_fetch_movies.dart';
 import 'package:app/layer/data/repository/movies/dto_movie.dart';
+
+import '../../../domain/use/case/fetch/movies/case_fetch_movies.dart';
 
 abstract class SrcMoviesRemote {
   Future<List<DtoMovie>> readMovies(int pageNum);

@@ -1,4 +1,3 @@
-import 'package:app/layer/domain/use/case/fetch/movies/port_fetch_movies.dart';
 import 'package:app/layer/ui/splash/screen_splash.dart';
 import 'package:flutter/material.dart';
 
