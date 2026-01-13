@@ -1,3 +1,3 @@
 abstract class UseCase<A, R> {
-  R execute(A args);
+  Future<R> execute(A args);
 }

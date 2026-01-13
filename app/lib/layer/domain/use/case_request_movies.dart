@@ -1,27 +1,26 @@
 import 'package:app/layer/domain/entity/movie.dart';
 import 'package:app/layer/domain/use/use_case.dart';
 
-abstract class PortFetchMovies {
+abstract class FacadeRequestMovies {
   Future<List<Movie>> getMovies(int start, int size);
-
   Future<List<Movie>> fetchMovies(int start, int size);
 }
 
-class ArgsFetchMovies {
+class ArgsRequestMovies {
   final int pageNum;
   final int pageSize;
   final bool forceUpdate;
 
-  ArgsFetchMovies(this.pageNum, this.pageSize, this.forceUpdate);
+  ArgsRequestMovies(this.pageNum, this.pageSize, this.forceUpdate);
 }
 
-class CaseFetchMovies implements UseCase<ArgsFetchMovies, Future<List<Movie>>> {
-  final PortFetchMovies port;
+class CaseRequestMovies implements UseCase<ArgsRequestMovies, List<Movie>> {
+  final FacadeRequestMovies port;
 
-  CaseFetchMovies(this.port);
+  CaseRequestMovies(this.port);
 
   @override
-  Future<List<Movie>> execute(ArgsFetchMovies args) async {
+  Future<List<Movie>> execute(ArgsRequestMovies args) async {
     final int start = args.pageNum * args.pageSize;
 
     if (args.forceUpdate) {
