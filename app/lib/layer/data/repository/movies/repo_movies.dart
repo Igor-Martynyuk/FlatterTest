@@ -24,13 +24,18 @@ class RepoMovies implements PortFetchMovies {
     final localMovies = await _localSource.readMovies(start, size);
 
     if (localMovies.length < size) {
-      final lastPage = await _localSource.readMaxPageNum();
-      final remoteMovies = await _remoteSource.readMovies(lastPage + 1);
-
-      await _localSource.writeMovies(remoteMovies);
-      return await _localSource.readMovies(start, size);
+      return await fetchMovies(start, size);
     } else {
       return localMovies;
     }
+  }
+
+  @override
+  Future<List<DtoMovie>> fetchMovies(int start, int size) async {
+    final lastPage = await _localSource.readMaxPageNum();
+    final remoteMovies = await _remoteSource.readMovies(lastPage + 1);
+
+    await _localSource.writeMovies(remoteMovies);
+    return await _localSource.readMovies(start, size);
   }
 }
