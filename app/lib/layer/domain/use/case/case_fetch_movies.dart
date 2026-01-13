@@ -1,8 +1,8 @@
-import 'package:app/layer/data/repository/movies/repo_dto_movie.dart';
+import 'package:app/layer/domain/entity/movie.dart';
 
 abstract class PortFetchMovies {
-  Future<List<RepoDtoMovie>> getMovies(int start, int size);
-  Future<List<RepoDtoMovie>> fetchMovies(int start, int size);
+  Future<List<Movie>> getMovies(int start, int size);
+  Future<List<Movie>> fetchMovies(int start, int size);
 }
 
 class CaseFetchMovies {
@@ -10,5 +10,5 @@ class CaseFetchMovies {
 
   CaseFetchMovies(this.source);
 
-  Future<List<RepoDtoMovie>> invoke() => source.getMovies(0, 20);
+  Future<List<Movie>> execute() => source.getMovies(0, 20);
 }

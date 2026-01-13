@@ -1,4 +1,4 @@
-class RepoDtoMovie {
+class RepoMoviesDto {
   final String id;
   final String? imgUrl;
   final String? name;
@@ -8,7 +8,7 @@ class RepoDtoMovie {
   final bool isFavorite;
   final int page;
 
-  RepoDtoMovie(
+  RepoMoviesDto(
     this.id,
     this.imgUrl,
     this.name,

@@ -17,7 +17,7 @@ class DbDecorator extends SrcMoviesLocal {
   }
 
   @override
-  Future<List<RepoDtoMovie>> readMovies(int start, int size) async {
+  Future<List<RepoMoviesDto>> readMovies(int start, int size) async {
     final result = await _database.query(
       DbConst.tableMovies,
       orderBy: '${DbConst._keyPage} ASC, ${DbConst._keySeq} ASC',
@@ -29,7 +29,7 @@ class DbDecorator extends SrcMoviesLocal {
   }
 
   @override
-  Future<void> writeMovies(List<RepoDtoMovie> page) async {
+  Future<void> writeMovies(List<RepoMoviesDto> page) async {
     final batch = _database.batch();
 
     int seq = 0;

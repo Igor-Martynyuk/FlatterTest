@@ -7,7 +7,7 @@ import 'package:sqflite/sqflite.dart';
 import '../../../../core/extensions/ext_bool.dart';
 import '../../../../core/extensions/ext_int.dart';
 import '../../../../core/extensions/ext_int_nullable.dart';
-import '../../repository/movies/repo_dto_movie.dart';
+import '../../repository/movies/repo_movies_dto.dart';
 
 part 'db_const.dart';
 part 'db_decorator.dart';

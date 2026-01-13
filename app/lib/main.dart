@@ -1,5 +1,6 @@
 library;
 
+import 'package:app/layer/data/repository/movies/repo_movies_mapper.dart';
 import 'package:app/layer/data/source/db/lib.dart';
 import 'package:path/path.dart';
 import 'package:flutter/material.dart';
@@ -23,12 +24,13 @@ void main() async {
   final dbDecorator = await createDb();
   final apiDecorator = await createApi();
 
-  final SrcMoviesLocal localMoviesSource = dbDecorator;
-  final SrcMoviesRemote remoteMoviesSource = apiDecorator;
-  final moviesRepository = RepoMovies(localMoviesSource, remoteMoviesSource);
+  final SrcMoviesLocal localMoviesSrc = dbDecorator;
+  final SrcMoviesRemote remoteMoviesSrc = apiDecorator;
 
-  final PortFetchMovies fetchMoviesPort = moviesRepository;
+  final moviesMapper = RepoMoviesMapper();
+  final moviesRepo = RepoMovies(localMoviesSrc, remoteMoviesSrc, moviesMapper);
 
+  final PortFetchMovies fetchMoviesPort = moviesRepo;
   runApp(_App(fetchMoviesPort));
 }
 

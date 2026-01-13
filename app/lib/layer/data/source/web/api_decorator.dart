@@ -22,7 +22,7 @@ class ApiDecorator implements SrcMoviesRemote {
   ApiDecorator(this._mapper, this._token);
 
   @override
-  Future<List<RepoDtoMovie>> readMovies(int pageNum) async {
+  Future<List<RepoMoviesDto>> readMovies(int pageNum) async {
     final request = await _client.getUrl(
       Uri(
         scheme: _urlScheme,
